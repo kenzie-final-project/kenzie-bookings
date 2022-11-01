@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..models import Lodgings, LodgingsCategories
+from ..models import Lodging, LodgingCategories
 
 
 class TestModels (TestCase):
@@ -27,7 +27,7 @@ class TestModels (TestCase):
                 "cep": "01026000"
             }
         ]
-        cls.lodgings = [Lodgings.objects.create(**lodging_data) for lodging_data in cls.lodging_datas]
+        cls.lodgings = [Lodging.objects.create(**lodging_data) for lodging_data in cls.lodging_datas]
 
     def test_category_max_length(self):
         for lodging in self.lodgings:
@@ -37,7 +37,7 @@ class TestModels (TestCase):
     def test_category_choices(self):
         for lodging in self.lodgings:
             choices = lodging._meta.get_field('sex').choices
-            self.assertEqual(choices, LodgingsCategories.choices)
+            self.assertEqual(choices, LodgingCategories.choices)
 
     def test_name_max_length(self):
         for lodging in self.lodgings:
@@ -71,7 +71,7 @@ class TestModels (TestCase):
 
     def test_number_max_length(self):
         self.lodging_datas[0]["number"] = 0
-        lodging = Lodgings.objects.create(**self.lodging_datas[0])
+        lodging = Lodging.objects.create(**self.lodging_datas[0])
         self.assertEqual(lodging.number, 0)
 
     def test_complement_max_length(self):
