@@ -36,7 +36,7 @@ class TestModels (TestCase):
 
     def test_category_choices(self):
         for lodging in self.lodgings:
-            choices = lodging._meta.get_field('sex').choices
+            choices = lodging._meta.get_field('category').choices
             self.assertEqual(choices, LodgingCategories.choices)
 
     def test_name_max_length(self):
