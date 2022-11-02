@@ -9,11 +9,11 @@ class LodgingCategories(models.TextChoices):
 
 
 class Lodging(models.Model):
-    """ host = models.ForeignKey(
-        "accounts.User",
+    host = models.ForeignKey(
+        "accounts.Account",
         on_delete=models.CASCADE,
         related_name="lodging"
-    ) """
+    )
     category = models.CharField(
         max_length=20,
         choices=LodgingCategories.choices,

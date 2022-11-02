@@ -1,12 +1,25 @@
 from django.test import TestCase
 from ..models import Lodging, LodgingCategories
-
+from accounts.models import Account
 
 class TestModels (TestCase):
     @classmethod
     def setUpTestData(cls):
+        cls.account_data = {
+            "username": "username",
+            "password": "password",
+            "first_name": "name",
+            "last_name": "last_name",
+            "email": "email@email.com",
+            "phone": "123456789012",
+            "is_host": True,
+            "cpf": "12345678901"
+        }
+        cls.account = Account.objects.create_user(**cls.account_data)
+
         cls.lodging_datas = [
             {
+                "host": cls.account.id,
                 "category": "Pousada",
                 "name": "Tetris Container",
                 "state": "Paraná",
@@ -17,6 +30,7 @@ class TestModels (TestCase):
                 "cep": "85853000"
             },
             {
+                "host": cls.account.id,
                 "category": "Hotel",
                 "name": "Ibis Styles",
                 "state": "São Paulo",
