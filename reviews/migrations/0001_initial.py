@@ -12,11 +12,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ("rooms", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Lodging",
+            name="Review",
             fields=[
                 (
                     "id",
@@ -27,36 +28,30 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("title", models.CharField(max_length=255)),
+                ("review", models.TextField()),
                 (
-                    "category",
-                    models.CharField(
-                        choices=[
-                            ("Hotel", "Hotel"),
-                            ("Resort", "Resort"),
-                            ("Pousada", "Pousada"),
-                        ],
-                        default="Hotel",
-                        max_length=20,
-                    ),
-                ),
-                ("name", models.CharField(max_length=127)),
-                ("state", models.CharField(max_length=20)),
-                ("city", models.CharField(max_length=127)),
-                ("district", models.CharField(max_length=127)),
-                ("street", models.CharField(max_length=127)),
-                (
-                    "number",
+                    "stars",
                     models.IntegerField(
-                        validators=[django.core.validators.MinValueValidator(1)]
+                        validators=[
+                            django.core.validators.MinValueValidator(1),
+                            django.core.validators.MaxValueValidator(5),
+                        ]
                     ),
                 ),
-                ("complement", models.CharField(blank=True, max_length=30)),
-                ("cep", models.CharField(max_length=8)),
                 (
-                    "host",
+                    "room",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="lodging",
+                        related_name="review",
+                        to="rooms.room",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="review",
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
