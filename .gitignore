@@ -1,4 +1,6 @@
 venv
+.venv
+.env
 .vscode
 __pycache__
 db.sqlite3
