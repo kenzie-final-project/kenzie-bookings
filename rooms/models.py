@@ -5,8 +5,7 @@ class Room(models.Model):
     # Nulável, pois o tipo de identificação do estabelecimento seja outro (letras, apelidos...)
     number = models.PositiveIntegerField(
         blank=True,
-        null=True,
-        min_value=0
+        null=True
     )
     cost = models.DecimalField(
         max_digits=20,
