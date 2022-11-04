@@ -2,6 +2,7 @@ from django.test import TestCase
 from ..models import Lodging, LodgingCategories
 from accounts.models import Account
 
+
 class TestModels (TestCase):
     @classmethod
     def setUpTestData(cls):
