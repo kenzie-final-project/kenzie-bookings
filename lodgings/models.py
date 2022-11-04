@@ -19,6 +19,7 @@ class Lodging(models.Model):
         choices=LodgingCategories.choices,
         default=LodgingCategories.HOTEL
     )
+    description = models.TextField()
     name = models.CharField(max_length=127)
     state = models.CharField(max_length=20)
     city = models.CharField(max_length=127)
