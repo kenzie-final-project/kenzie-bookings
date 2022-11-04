@@ -9,8 +9,7 @@ class Room(models.Model):
     )
     cost = models.DecimalField(
         max_digits=20,
-        decimal_places=2,
-        min_value=0.1
+        decimal_places=2
     )
     occupation = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
