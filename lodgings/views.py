@@ -4,7 +4,7 @@ from .serializers import LodgingSerializer
 from accounts.serializers import Account
 
 
-class LodgingsView(generics.ListCreateAPIView):
+class LodgingView(generics.ListCreateAPIView):
     queryset = Lodging.objects.all()
     serializer_class = LodgingSerializer
 
@@ -13,6 +13,6 @@ class LodgingsView(generics.ListCreateAPIView):
         serializer.save(host=host)
 
 
-class LodgingsDetailView(generics.RetrieveUpdateDestroyAPIView):
+class LodgingDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lodging.objects.all()
     serializer_class = LodgingSerializer
