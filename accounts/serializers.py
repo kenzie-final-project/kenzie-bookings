@@ -6,6 +6,12 @@ class AccountSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Account.objects.create_user(**validated_data)
 
+    def update(self, instance, validated_data):
+        if validated_data.get('password'):
+            password = validated_data.pop('password')
+            self.instance.set_password(password)
+        return super().update(instance, validated_data)
+
     class Meta:
         model = Account
         fields = [
@@ -20,10 +26,13 @@ class AccountSerializer(serializers.ModelSerializer):
             "cpf",
         ]
         extra_kwargs = {"password": {"write_only": True}}
-        read_only_fields = ["is_host", "cpf"]
 
     def validate_username(self, username):
-        if Account.objects.filter(username=username).exists():
+        user = Account.objects.filter(username=username).first()
+
+        if user is None:
+            return username
+        elif user.id != self.context['request'].user.id:
             raise serializers.ValidationError("username already exists")
 
         return username

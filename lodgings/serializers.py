@@ -26,10 +26,9 @@ class LodgingSerializer(serializers.ModelSerializer):
             'complement',
             'cep'
         ]
-        read_only_fields = ['id', 'stars', 'host']
+        read_only_fields = ['id', 'stars']
         depth = 1
 
-    
     def get_stars(self, obj):
         stars = Review.objects.aggregate(Avg('stars'))
         return stars
