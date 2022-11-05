@@ -4,6 +4,7 @@ from lodgings.models import Lodging
 from rooms.models import Room
 from ..models import Booking
 
+
 class BookingModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -85,6 +86,3 @@ class BookingModelTest(TestCase):
     def test_cost_decimal_places(self):
         decimal_places = self.booking._meta.get_field("cost").decimal_places
         self.assertEqual(decimal_places, 2)
-    
-    
-
