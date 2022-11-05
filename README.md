@@ -3,9 +3,10 @@
 <!-- https://github.com/kenzie-final-project/kenzie-bookings -->
 
 URLS /api/
+
 login/(POST)
-accounts/ (POST, GET)
-accounts/<pk>(PATCH> nao pode mudar is_host, GET, DELETE)
+accounts/ (POST, GET)  ####ADMIN ONLY
+accounts/<pk>(PATCH> auth & nao pode mudar is_host & apenas o dono muda, GET auth & apenas o dono, DELETE auth & apenas o dono)
 bookings/ (GET>admin pegar tudo, nao admin pega só os propios bookings)
 reviews/ (GET, admin pegar tudo, nao admin pega só os propios reviews)
 lodgings/(GET,POST)

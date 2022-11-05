@@ -2,6 +2,7 @@ from django.test import TestCase
 from ..models import Lodging, LodgingCategories
 from accounts.models import Account
 
+
 class TestModels (TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -19,7 +20,7 @@ class TestModels (TestCase):
 
         cls.lodging_datas = [
             {
-                "host": cls.account.id,
+                "host": cls.account,
                 "category": "Pousada",
                 "name": "Tetris Container",
                 "state": "Paraná",
@@ -30,7 +31,7 @@ class TestModels (TestCase):
                 "cep": "85853000"
             },
             {
-                "host": cls.account.id,
+                "host": cls.account,
                 "category": "Hotel",
                 "name": "Ibis Styles",
                 "state": "São Paulo",
