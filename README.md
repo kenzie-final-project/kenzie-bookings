@@ -1,8 +1,5 @@
 # Kenzie's 5th Module Final Project  
 
-<<<<<<< Updated upstream
-<!-- https://github.com/kenzie-final-project/kenzie-bookings -->
-=======
 <!-- https://github.com/kenzie-final-project/kenzie-bookings -->
 
 URLS /api/
@@ -23,4 +20,3 @@ lodgings/<id_lodgings>/reviews(GET)
 reviews/ (GET, admin pegar tudo, nao admin pega só os propios reviews)
 lodgings/(GET,POST)
 lodgings/<pk>(GET,PATCH,DELETE)
->>>>>>> Stashed changes
