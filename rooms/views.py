@@ -3,7 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Room
 from .serializers import RoomSerializer
 
-class Roomview(APIView):
+class GeneralRoomview(APIView):
     def get(self, request: Request) -> Response:
         rooms = Room.objects.all()
         result_page = self.paginate_queryset(rooms, request, view=self)
@@ -18,7 +18,7 @@ class Roomview(APIView):
 
     #     return Response(serializer.data, status.HTTP_201_CREATED)
     
-class SpecificRoomview(APIView):
+class SpecificRoomView(APIView):
     def get(self, request: Request, room_id: int) -> Response:
         ...
     
