@@ -14,8 +14,8 @@ class LodgingSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'host',
-            'category',
             'name',
+            'category',
             'stars',
             'description',
             'state',
