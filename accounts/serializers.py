@@ -3,6 +3,11 @@ from .models import Account
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField(method_name="add_full_name")
+
+    def add_full_name(self, obj):
+        return obj.full_name_method()
+
     def create(self, validated_data):
         return Account.objects.create_user(**validated_data)
 
@@ -18,14 +23,15 @@ class AccountSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "password",
+            "first_name"
+            "last_name"
             "email",
-            "name",
             "phone",
             "is_host",
-            "is_superuser",
             "cpf",
         ]
         extra_kwargs = {"password": {"write_only": True}}
+        read_only_fields = ["is_host", "cpf"]
 
     def validate_username(self, username):
         user = Account.objects.filter(username=username).first()
