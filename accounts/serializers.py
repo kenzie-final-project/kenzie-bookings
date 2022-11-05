@@ -27,3 +27,14 @@ class AccountSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("username already exists")
 
         return username
+
+
+class AccountListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = [
+            "id",
+            "username",
+            "email",
+            "phone"
+        ]
