@@ -23,15 +23,15 @@ class AccountSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "password",
-            "first_name"
-            "last_name"
+            "first_name",
+            "last_name",
+            "full_name",
             "email",
             "phone",
             "is_host",
             "cpf",
         ]
         extra_kwargs = {"password": {"write_only": True}}
-        read_only_fields = ["is_host", "cpf"]
 
     def validate_username(self, username):
         user = Account.objects.filter(username=username).first()
