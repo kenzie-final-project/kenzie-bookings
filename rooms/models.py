@@ -14,3 +14,8 @@ class Room(models.Model):
     occupation = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
     description = models.TextField(blank=True, null=True)
+
+    lodging = models.ForeignKey(
+        "lodgings.Lodging",
+        on_delete=models.CASCADE
+    )
