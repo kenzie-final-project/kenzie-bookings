@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  postgres:
+      container_name: postgres-stack
+      image: postgres
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgrespw
+        - PGDATA=/data/postgres
+      volumes: 
+        - ./constructor.sql:/docker-entrypoint-initdb.d/constructor.sql
+        - db:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+      networks:
+        - postgres
+      restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
