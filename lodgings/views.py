@@ -23,4 +23,4 @@ class LodgingDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Lodging.objects.all()
     serializer_class = LodgingSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsLodgingOwner]
+    permission_classes = [AllowAny, IsHost, IsLodgingOwner]
