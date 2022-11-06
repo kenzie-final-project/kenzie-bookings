@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 import dotenv
+import dj_database_url
 from pathlib import Path
 
 dotenv.load_dotenv()
@@ -29,7 +30,10 @@ SECRET_KEY = "django-insecure-q)t65cf$1tjh*c7qenbem+uh^s-s&ej8j#%rl@bz=hi49g3bv9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'project.herokuapp.com',
+    'localhost'
+]
 
 
 # Application definition
@@ -112,6 +116,13 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT")
     }
 }
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
