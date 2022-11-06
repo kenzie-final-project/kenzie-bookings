@@ -17,8 +17,20 @@ class LodgingsViewTest(APITestCase):
             "is_host": True
         }
 
-        cls.host = Account.objects.create_user(**host)
+        user = {
+            "first_name": "plinio",
+            "last_name": "figueiredo",
+            "email": "plinio@plinio.com",
+            "username": "janjan",
+            "password": "1234",
+            "phone": "22224444",
+            "cpf": "12345678911",
+            "is_host": False
+        }
 
+        cls.user = Account.objects.create_user(**user)
+        cls.host = Account.objects.create_user(**host)
+    
         lodging = {
             "name": "XXX",
             "category": "Resort",
@@ -70,4 +82,22 @@ class LodgingsViewTest(APITestCase):
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['name'], "ZZZ")
+
+    def test_if_non_host_can_create_product(self):
+        user = {
+            "username": "juca",
+            "password": "1234"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        product = {
+            "description": "Smartband XYZ 3.0",
+            "price": 100.99,
+            "quantity": 15
+        }
+
+        response = self.client.post('/api/products/', product, format='json')
+
+        self.assertEqual(response.status_code, 403)
 
