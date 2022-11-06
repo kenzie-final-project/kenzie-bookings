@@ -8,7 +8,7 @@ from .mixins import SerializerMixin
 from .permissions import IsLodgingOwner
 
     
-class ListRoomview(SerializerMixin, ListAPIView):
+class ListRoomView(SerializerMixin, ListAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     
