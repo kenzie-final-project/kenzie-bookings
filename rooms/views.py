@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
 from .models import Room
-from ..lodgings.models import Lodging
+from lodgings.models import Lodging
 from .serializers import RoomSerializer
 from .mixins import SerializerMixin
 from .permissions import IsOwnerOrAdmin

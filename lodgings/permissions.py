@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 class IsLodgingOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj == request.user and request.user.is_host
+        return obj == request.user
 
 class IsHost(permissions.BasePermission):
     def has_permission(self, request, view):
