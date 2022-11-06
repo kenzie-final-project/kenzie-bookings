@@ -90,6 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "project.wsgi.application"
 
+# For Enable Sqlite3
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
