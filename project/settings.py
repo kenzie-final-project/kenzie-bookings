@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-q)t65cf$1tjh*c7qenbem+uh^s-s&ej8j#%rl@bz=hi49g3bv9
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'project.herokuapp.com',
+    'kenzie-bookings.herokuapp.com',
     'localhost'
 ]
 
