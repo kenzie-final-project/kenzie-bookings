@@ -1,6 +1,6 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
 from .models import Room
 from ..lodgings.models import Lodging
@@ -26,8 +26,15 @@ class CreateRoomView(SerializerMixin, CreateAPIView):
 class RetrieveRoomView(RetrieveAPIView):    
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+
+class UpdateRoomView(UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     
-class DetailRoomView(UpdateDestroyAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+class DestroyRoomView(DestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     
