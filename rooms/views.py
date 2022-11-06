@@ -1,32 +1,42 @@
-from rest_framework.views import APIView, Response, Request, status
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+
 from .models import Room
+from ..lodgings.models import Lodging
 from .serializers import RoomSerializer
+from .mixins import SerializerMixin
+from .permissions import IsOwnerOrAdmin
 
-class Roomview(APIView):
-    def get(self, request: Request) -> Response:
-        rooms = Room.objects.all()
-        result_page = self.paginate_queryset(rooms, request, view=self)
-        serializer = RoomSerializer(result_page, many=True)
+    
+class ListRoomview(SerializerMixin, ListAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    
+class CreateRoomView(SerializerMixin, CreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
 
-        return self.get_paginated_response(serializer.data)
-    
-    # def post(self, request: Request) -> Response:
-    #     serializer = RoomSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
 
-    #     return Response(serializer.data, status.HTTP_201_CREATED)
+    def perform_create(self, serializer):
+        return serializer.save(lodging_id=self.kwargs.get('lodging_id'))
+
+class RetrieveRoomView(RetrieveAPIView):    
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+class UpdateRoomView(UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     
-class SpecificRoomview(APIView):
-    def get(self, request: Request, room_id: int) -> Response:
-        ...
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+class DestroyRoomView(DestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     
-    def post(self, request: Request, room_id: int) -> Response:
-        ...
-    
-    def patch(self, request: Request, room_id: int) -> Response:
-        ...
-    
-    def delete(self, request: Request, room_id: int) -> Response:
-        ... 
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
