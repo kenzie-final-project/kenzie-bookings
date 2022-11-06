@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-11-05T21:01:24.625Z
+__export_date: 2022-11-06T19:06:02.170Z
 __export_source: insomnia.desktop.app:v2022.6.0
 resources:
   - _id: req_032f4045a5014155ad75bce80323c56e
@@ -138,9 +138,83 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_a48ae455925141dba063ce46c246ed86
+    parentId: fld_cbfe146febe94765b922d1ff4aab5da5
+    modified: 1667759610874
+    created: 1667759610874
+    url: "{{url}}rooms/"
+    name: List - 200
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1667639014451
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cbfe146febe94765b922d1ff4aab5da5
+    parentId: fld_fc7d75d3b9a9495e837940818b746f50
+    modified: 1667759610872
+    created: 1667759610872
+    name: General
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1667684526256
+    _type: request_group
+  - _id: fld_fc7d75d3b9a9495e837940818b746f50
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667759627111
+    created: 1667759610871
+    name: rooms
+    description: ""
+    environment: {}
+    environmentPropertyOrder: {}
+    metaSortKey: -1667675619430.5
+    _type: request_group
+  - _id: req_cf84a3b42d014e1898e832d8f2021632
+    parentId: fld_cbfe146febe94765b922d1ff4aab5da5
+    modified: 1667759610877
+    created: 1667759610877
+    url: "{{url}}rooms/"
+    name: Create - 201
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        		"number": 1,
+        		"cost": 100,
+        		"occupation": 2,
+        		"available": "True",
+        		"description": "Quarto com cama de casal",
+        		"lodging": 1
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1667639014401
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_a83b50a39d384174b6eb0b337fb4be6c
     parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667680401503
+    modified: 1667761510918
     created: 1667679609083
     url: "{{host}}/lodgings/"
     name: Create OK
@@ -297,9 +371,43 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_a0da5f3775204ede8f36062c0da08df2
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667759841028
+    created: 1667759610883
+    url: "{{url}}rooms/1"
+    name: Filter
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1667676616999.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_a8435265779b43d09dd1a84f64567db5
+    parentId: fld_fe35557ee823440fbb49f76d3821080b
+    modified: 1667680736520
+    created: 1667680407788
+    name: Rooms
+    description: ""
+    environment:
+      number: "{% prompt 'room_number', 'Number', '1', '', false, true %}"
+    environmentPropertyOrder:
+      "&":
+        - number
+    metaSortKey: -1667676616949.875
+    _type: request_group
   - _id: req_71951e9cfd74431dae12d8e23e53d7ba
     parentId: fld_a8435265779b43d09dd1a84f64567db5
-    modified: 1667681600443
+    modified: 1667759855286
     created: 1667680488058
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
     name: Create OK
@@ -323,7 +431,7 @@ resources:
       type: bearer
       token: "{{ _.token_host }}"
       prefix: Token
-    metaSortKey: -1667676616899.875
+    metaSortKey: -1667676616987.375
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -332,19 +440,60 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_a8435265779b43d09dd1a84f64567db5
-    parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667680736520
-    created: 1667680407788
-    name: Rooms
+  - _id: req_adf9c34ec0784bb486324499805d4b3b
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667759842972
+    created: 1667759610885
+    url: "{{url}}rooms/1"
+    name: Update
     description: ""
-    environment:
-      number: "{% prompt 'room_number', 'Number', '1', '', false, true %}"
-    environmentPropertyOrder:
-      "&":
-        - number
-    metaSortKey: -1667676616949.875
-    _type: request_group
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        		"number": 1,
+        		"cost": 100,
+        		"occupation": 2,
+        		"available": "True",
+        		"description": "Quarto com cama de casal",
+        		"lodging": 1
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1667676616974.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d5e691d335f94f9aa55ee8c6df8f2717
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667759844891
+    created: 1667759610888
+    url: "{{url}}rooms/1"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1667676616962.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_2bb01497bc3b4cbf868bd4cc39f18c67
     parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
     modified: 1667679560558
