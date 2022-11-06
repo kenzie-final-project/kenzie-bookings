@@ -9,7 +9,7 @@ from .mixins import SerializerMixin
 from .permissions import IsOwnerOrAdmin
 
     
-class ListBookingview(SerializerMixin, ListAPIView):
+class ListBookingsView(SerializerMixin, ListAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     
