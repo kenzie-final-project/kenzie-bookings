@@ -13,6 +13,8 @@ class LodgingView(generics.ListCreateAPIView):
     permission_classes = [IsHost, IsLodgingOwner]
     queryset = Lodging.objects.all()
     serializer_class = LodgingSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
         host = Account(self.request.user)
