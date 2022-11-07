@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-11-07T22:34:08.318Z
+__export_date: 2022-11-07T23:05:13.829Z
 __export_source: insomnia.desktop.app:v2022.6.0
 resources:
   - _id: req_a6f0cc2b201c43c78c2bd1800141b5c7
@@ -569,7 +569,7 @@ resources:
     _type: request
   - _id: req_cabe7ccc3df040d0900f91a5067ad312
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667860401913
+    modified: 1667861235993
     created: 1667860375874
     url: "{{host}}/reviews/"
     name: Review List
@@ -578,7 +578,10 @@ resources:
     body: {}
     parameters: []
     headers: []
-    authentication: {}
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
     metaSortKey: -1667675619355.5
     isPrivate: false
     settingStoreCookies: true
@@ -1144,7 +1147,7 @@ resources:
     _type: request
   - _id: req_9bd91a5c703e44fc8d5693f4a7ba31bc
     parentId: fld_b5c133a691c7418baf7eec310f34d786
-    modified: 1667860413747
+    modified: 1667861389654
     created: 1667860408850
     url: "{{host}}/reviews/"
     name: Review List
@@ -1153,7 +1156,10 @@ resources:
     body: {}
     parameters: []
     headers: []
-    authentication: {}
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
     metaSortKey: -1667675619355.5
     isPrivate: false
     settingStoreCookies: true
@@ -1364,7 +1370,7 @@ resources:
     _type: request
   - _id: req_fa821dc8d4654d428588d40d347ccb10
     parentId: fld_dc2c06b19bdf43ebb2ffb5177bcb33b2
-    modified: 1667858801034
+    modified: 1667861519740
     created: 1667846184915
     url: "{{host}}/lodgings/"
     name: List
@@ -1398,7 +1404,7 @@ resources:
     _type: request_group
   - _id: req_3e6707b5cd5c4f679c943d439c5d3c41
     parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
-    modified: 1667858882492
+    modified: 1667861516245
     created: 1667858791972
     url: "{{host}}/lodgings/{{lodging_id}}"
     name: Get
@@ -1697,7 +1703,7 @@ resources:
     _type: request
   - _id: req_a3df3bf2590045168201dadf7dcd64bc
     parentId: fld_0677131fe0da49159404ebbe0ec68fe9
-    modified: 1667859776409
+    modified: 1667861527801
     created: 1667859432211
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
     name: List
@@ -1731,7 +1737,7 @@ resources:
     _type: request_group
   - _id: req_e1921bb0880143adb49a216c63e8f034
     parentId: fld_cecc22e2efe94112a1bfe244c50aec46
-    modified: 1667860043967
+    modified: 1667862294839
     created: 1667859860324
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
     name: Create (OK)
@@ -1779,9 +1785,9 @@ resources:
     _type: request_group
   - _id: req_998681ebdb35402591fd2e6555072b1b
     parentId: fld_cecc22e2efe94112a1bfe244c50aec46
-    modified: 1667859911197
+    modified: 1667862223991
     created: 1667859906297
-    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}"
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}/"
     name: Get
     description: ""
     method: GET
@@ -1803,9 +1809,9 @@ resources:
     _type: request
   - _id: req_fb0b1d4dc4cc4fc989ee3f96a1ed96e6
     parentId: fld_cecc22e2efe94112a1bfe244c50aec46
-    modified: 1667859984340
+    modified: 1667862293298
     created: 1667859876801
-    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}"
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}/"
     name: Update (OK)
     description: ""
     method: PATCH
@@ -1837,9 +1843,9 @@ resources:
     _type: request
   - _id: req_7868e6bb7e084212a26f1953cfa6e6dd
     parentId: fld_cecc22e2efe94112a1bfe244c50aec46
-    modified: 1667859938102
+    modified: 1667862250439
     created: 1667859892619
-    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}"
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}/"
     name: Delete (OK)
     description: ""
     method: DELETE
@@ -1899,7 +1905,7 @@ resources:
     _type: request_group
   - _id: req_29b35498fc2d48aa81a5d856577f8fe0
     parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667860426626
+    modified: 1667861505102
     created: 1667860420773
     url: "{{host}}/reviews/"
     name: Review List
@@ -1908,7 +1914,10 @@ resources:
     body: {}
     parameters: []
     headers: []
-    authentication: {}
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
     metaSortKey: -1667675619505.5
     isPrivate: false
     settingStoreCookies: true
