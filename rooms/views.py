@@ -1,41 +1,31 @@
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListCreateAPIView
 
 from .models import Room
 from .serializers import RoomSerializer
 from .mixins import SerializerMixin
-from .permissions import IsLodgingOwner
+from .permissions import IsLodgingOwner, IsHost
+from lodgings.models import Lodging
+import ipdb
 
-    
-class ListRoomView(SerializerMixin, ListAPIView):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
-    
-class CreateRoomView(SerializerMixin, CreateAPIView):
+
+class RoomView(ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsLodgingOwner]
+    permission_classes = [AllowAny, IsLodgingOwner]
 
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
     def perform_create(self, serializer):
-        return serializer.save(lodging_id=self.kwargs.get('lodging_id'))
+        lodging = Lodging.objects.get(id=self.kwargs.get('lodging_id'))
+        return serializer.save(lodging=lodging)
 
-class RetrieveRoomView(RetrieveAPIView):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
 
-class UpdateRoomView(UpdateAPIView):
+class RoomDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsLodgingOwner]
+    permission_classes = [AllowAny, IsLodgingOwner]
     
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
-class DestroyRoomView(DestroyAPIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsLodgingOwner]
-    
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
