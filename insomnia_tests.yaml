@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-11-07T23:05:13.829Z
+__export_date: 2022-11-07T23:32:13.821Z
 __export_source: insomnia.desktop.app:v2022.6.0
 resources:
   - _id: req_a6f0cc2b201c43c78c2bd1800141b5c7
@@ -1428,7 +1428,7 @@ resources:
     _type: request
   - _id: fld_35ef2112f9a6416fafb2df0fed9c7a7b
     parentId: fld_dc2c06b19bdf43ebb2ffb5177bcb33b2
-    modified: 1667859648859
+    modified: 1667863826926
     created: 1667858791928
     name: Last Lodgings
     description: ""
@@ -1569,13 +1569,13 @@ resources:
     _type: request
   - _id: fld_b8fbc04a70964d649fdcee6edb3c3519
     parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
-    modified: 1667858850369
+    modified: 1667863858852
     created: 1667858791931
     name: Rooms
     description: ""
     environment:
-      room_id: "{% response 'body', 'req_b01514b2751443ec97d2f01abe17ea37',
-        'b64::JFsoQC5sZW5ndGgtMSldLm51bWJlcg==::46b', 'never', 60 %}"
+      room_id: "{% response 'body', 'req_046dbff745e04903a0a52d90270df036',
+        'b64::JFsoQC5sZW5ndGgtMSldLmlk::46b', 'never', 60 %}"
     environmentPropertyOrder:
       "&":
         - room_id
@@ -1607,7 +1607,7 @@ resources:
     _type: request
   - _id: req_77dba5ae9a784bbea72bd81bd36e24be
     parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
-    modified: 1667859757298
+    modified: 1667863710913
     created: 1667858791935
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
     name: Create (Fail)
@@ -1737,7 +1737,7 @@ resources:
     _type: request_group
   - _id: req_e1921bb0880143adb49a216c63e8f034
     parentId: fld_cecc22e2efe94112a1bfe244c50aec46
-    modified: 1667862294839
+    modified: 1667863877338
     created: 1667859860324
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
     name: Create (OK)
@@ -1903,6 +1903,30 @@ resources:
         - review_id
     metaSortKey: -1667675868897.8438
     _type: request_group
+  - _id: req_f0d890ca536f42789f95d3149ca676d6
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667862826756
+    created: 1667862802661
+    url: "{{host}}/lodgings/{{lodging_id}}/reviews/"
+    name: Review List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676616899.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_29b35498fc2d48aa81a5d856577f8fe0
     parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
     modified: 1667861505102

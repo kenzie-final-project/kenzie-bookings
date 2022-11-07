@@ -9,4 +9,4 @@ class IsOwnerOrReadOnly(BasePermission):
 
 class IsGuest(BasePermission):
     def has_permission(self, request, view):
-        return (request.user.is_host is False)
+        return (request.user.is_authenticated is False or request.user.is_host is False)
