@@ -12,6 +12,8 @@ class AccountSerializer(serializers.ModelSerializer):
         return Account.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
+        if validated_data.get('is_host') is not None:
+            validated_data.pop('is_host')
         if validated_data.get('password'):
             password = validated_data.pop('password')
             self.instance.set_password(password)
@@ -32,6 +34,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "cpf",
         ]
         extra_kwargs = {"password": {"write_only": True}}
+        read_only_fields = ['full_name']
 
     def validate_username(self, username):
         user = Account.objects.filter(username=username).first()

@@ -1,9 +1,12 @@
 from rest_framework import permissions
-
+import ipdb
 
 class IsLodgingOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj == request.user and request.user.is_host
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        return obj.lodging.host == request.user
 
 class IsHost(permissions.BasePermission):
     def has_permission(self, request, view):

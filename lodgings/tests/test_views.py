@@ -16,6 +16,16 @@ class LodgingsViewTest(APITestCase):
             "cpf": "12345678911",
             "is_host": True
         }
+        host2 = {
+            "first_name": "plinio",
+            "last_name": "figueiredo",
+            "email": "plinio@plinio.com",
+            "username": "plinio",
+            "password": "1234",
+            "phone": "22224444",
+            "cpf": "12345678911",
+            "is_host": True
+        }
 
         user = {
             "first_name": "plinio",
@@ -30,7 +40,8 @@ class LodgingsViewTest(APITestCase):
 
         cls.user = Account.objects.create_user(**user)
         cls.host = Account.objects.create_user(**host)
-    
+        cls.host2 = Account.objects.create_user(**host2)
+
         lodging = {
             "name": "XXX",
             "category": "Resort",
@@ -83,21 +94,115 @@ class LodgingsViewTest(APITestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['name'], "ZZZ")
 
-    def test_if_non_host_can_create_product(self):
+    def test_if_non_host_can_create_a_lodging(self):
         user = {
-            "username": "juca",
+            "username": "janjan",
             "password": "1234"
         }
         token = self.client.post('/api/login/', user, format='json')
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
 
-        product = {
-            "description": "Smartband XYZ 3.0",
-            "price": 100.99,
-            "quantity": 15
+        lodging = {
+            "name": "ZZZ",
+            "category": "Hotel",
+            "description": "Mal",
+            "state": "SPx",
+            "city": "São Paulox",
+            "district": "bira",
+            "street": "rua rua",
+            "number": 778,
+            "cep": "12345678"
         }
 
-        response = self.client.post('/api/products/', product, format='json')
+        response = self.client.post('/api/lodgings/', lodging, format='json')
 
         self.assertEqual(response.status_code, 403)
 
+    def test_if_host_can_create_a_lodging(self):
+        user = {
+            "username": "dunas",
+            "password": "1234"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        lodging = {
+            "name": "ZZZ",
+            "category": "Hotel",
+            "description": "Mal",
+            "state": "SPx",
+            "city": "São Paulox",
+            "district": "bira",
+            "street": "rua rua",
+            "number": 778,
+            "cep": "12345678"
+        }
+
+        response = self.client.post('/api/lodgings/', lodging, format='json')
+
+        self.assertEqual(response.status_code, 201)
+
+    def test_if_host_can_update_a_lodging(self):
+        user = {
+            "username": "dunas",
+            "password": "1234"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        lodging = {
+            "name": "ZZZ22",
+        }
+
+        response = self.client.patch(f'/api/lodgings/{self.lodging1.id}/', lodging, format='json')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['name'], 'ZZZ22')
+
+    def test_if_another_host_can_update_a_lodging(self):
+        user = {
+            "username": "plinio",
+            "password": "1234"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        lodging = {
+            "name": "ZZZ22",
+        }
+
+        response = self.client.patch(f'/api/lodgings/{self.lodging1.id}/', lodging, format='json')
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_if_host_can_delete_a_lodging(self):
+        user = {
+            "username": "dunas",
+            "password": "1234"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        lodging = {
+            "name": "ZZZ22",
+        }
+
+        response = self.client.delete(f'/api/lodgings/{self.lodging1.id}/', lodging, format='json')
+
+        self.assertEqual(response.status_code, 204)
+
+    def test_if_another_host_can_delete_a_lodging(self):
+        user = {
+            "username": "plinio",
+            "password": "1234"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        lodging = {
+            "name": "ZZZ22",
+        }
+
+        response = self.client.delete(f'/api/lodgings/{self.lodging1.id}/', lodging, format='json')
+
+        self.assertEqual(response.status_code, 403)
