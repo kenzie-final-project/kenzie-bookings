@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView, ListAPIView
 from rest_framework.views import APIView, Request, Response, status
-from accounts.permissions import IsOwnerOrAdmin
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsGuest, IsHostOrAdmin, IsAuthenticated
 from .models import Review
 from rooms.models import Room
 from lodgings.models import Lodging
@@ -37,22 +36,19 @@ class RoomReview (ListCreateAPIView):
     queryset = Review.objects
 
     def get_queryset(self):
-        room_id = self.kwargs["room_id"]
-        return self.queryset.filter(lodging=room_id)
+        room_id = self.kwargs.get('room_id')
+        print("RoomID ", room_id)
+        return self.queryset.filter(room_id=room_id)
 
-    def post(self, request: Request, room_id):
-        room = get_object_or_404(Room, id=room_id)
-        request.data["room"] = room
-        request.data["user"] = request.user
-        serializer = ReviewSerializer(data=request.data, many=True)
-        serializer.is_valid(raise_exception=True)
-
-        return Response(serializer.data)
+    def perform_create(self, serializer):
+        room_id = self.kwargs.get('room_id')
+        user = self.request.user
+        return serializer.save(room_id=room_id, user=user)
 
 
-class ListReview (ListCreateAPIView):
+class ListReview (ListAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [IsAuthenticated, IsGuest]
     serializer_class = ReviewSerializer
     queryset = Review.objects
 

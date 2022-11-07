@@ -12,3 +12,14 @@ class IsOwnerOrAdmin(BasePermission):
              request.user.id == user_id
             )
         )
+
+
+class IsHostOrAdmin(BasePermission):
+    def has_permission(self, request, view):
+
+        return bool(
+            request.user and
+            (
+             request.user.is_host
+            )
+        )
