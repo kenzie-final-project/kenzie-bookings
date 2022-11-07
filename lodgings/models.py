@@ -32,3 +32,5 @@ class Lodging(models.Model):
     )
     complement = models.CharField(max_length=30, blank=True)
     cep = models.CharField(max_length=8)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=12, blank=True)

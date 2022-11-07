@@ -21,7 +21,9 @@ class LodgingSerializer(serializers.ModelSerializer):
             'street',
             'number',
             'complement',
-            'cep'
+            'cep',
+            'email',
+            'phone'
         ]
         read_only_fields = ['id', 'stars']
 
