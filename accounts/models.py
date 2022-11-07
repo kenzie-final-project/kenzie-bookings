@@ -10,5 +10,6 @@ class Account(AbstractUser):
     cpf = models.CharField(max_length=11)
     is_host = models.BooleanField(default=False)
     REQUIRED_FIELDS = ["cpf"]
+    
     def full_name_method(self):
-        return self.first_name + self.last_name
+        return f'{self.first_name} {self.last_name}'
