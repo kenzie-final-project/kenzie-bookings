@@ -12,3 +12,7 @@ class IsOwnerOrAdmin(BasePermission):
              request.user.id == user_id
             )
         )
+
+class IsGetAdminOrPost(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_superuser and request.method == "GET" or request.method == "POST"
