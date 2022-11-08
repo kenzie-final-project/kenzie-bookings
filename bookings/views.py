@@ -1,42 +1,45 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import Booking
-from ..lodgings.models import Lodging
 from .serializers import BookingSerializer
-from .mixins import SerializerMixin
-from .permissions import IsOwnerOrAdmin
+from .mixins import SerializerMixin, UserTypeMixin
+from .permissions import IsOwnerOrHosterOrAdmin, IsGuestOrHostOrAdmin
+from rooms.models import Room
+from accounts.models import Account
 
-    
-class ListBookingsView(SerializerMixin, ListAPIView):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-    
-class CreateBookingView(SerializerMixin, CreateAPIView):
+
+class ListBookingsView(UserTypeMixin, ListAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
-
+    permission_classes = [IsAuthenticated, IsGuestOrHostOrAdmin]
     queryset = Booking.objects.all()
+    serializer_map = {
+        "admin": BookingSerializer,
+        "host": BookingSerializer,
+        "guest": BookingSerializer,
+    }
+
+
+class BookingView(ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated, IsGuestOrHostOrAdmin]
+    queryset = Booking.objects
     serializer_class = BookingSerializer
+
+    def get_queryset(self):
+        room_id = self.kwargs.get('room_id')
+        return self.queryset.filter(room_id=room_id)
 
     def perform_create(self, serializer):
-        return serializer.save(lodging_id=self.kwargs.get('lodging_id'))
+        room_id = self.kwargs.get('room_id')
+        room = Room.objects.get(id=room_id)
 
-class RetrieveBookingView(RetrieveAPIView):    
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
+        return serializer.save(room=room, user=self.request.user)
 
-class UpdateBookingView(UpdateAPIView):
+
+class BookingDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
-    
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-
-class DestroyBookingView(DestroyAPIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
-    
+    permission_classes = [IsAuthenticated, IsOwnerOrHosterOrAdmin]
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer

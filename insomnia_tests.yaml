@@ -1,6 +1,6 @@
 _type: export
 __export_format: 4
-__export_date: 2022-11-07T23:32:13.821Z
+__export_date: 2022-11-08T02:54:02.302Z
 __export_source: insomnia.desktop.app:v2022.6.0
 resources:
   - _id: req_a6f0cc2b201c43c78c2bd1800141b5c7
@@ -92,7 +92,7 @@ resources:
     _type: request
   - _id: req_032f4045a5014155ad75bce80323c56e
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667846434899
+    modified: 1667870335766
     created: 1667678268559
     url: "{{host}}/accounts/"
     name: Create
@@ -127,7 +127,7 @@ resources:
     _type: request
   - _id: req_7e83e3a7c1264be982f6feabcc53261a
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667846431884
+    modified: 1667870335125
     created: 1667678310952
     url: "{{host}}/accounts/{{id}}"
     name: Update
@@ -187,7 +187,7 @@ resources:
     _type: request
   - _id: req_8d63997754af4239b40bc9d18437d449
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667858640031
+    modified: 1667870360434
     created: 1667678321019
     url: "{{host}}/login/"
     name: Login
@@ -274,7 +274,7 @@ resources:
     _type: request
   - _id: fld_fe35557ee823440fbb49f76d3821080b
     parentId: fld_69f2918534aa44b3a440986ed5f45514
-    modified: 1667761319284
+    modified: 1667871546078
     created: 1667679628799
     name: Hotel California
     description: ""
@@ -308,7 +308,7 @@ resources:
     _type: request_group
   - _id: req_a83b50a39d384174b6eb0b337fb4be6c
     parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667846135812
+    modified: 1667871526185
     created: 1667679609083
     url: "{{host}}/lodgings/"
     name: Create OK
@@ -473,7 +473,7 @@ resources:
     _type: request
   - _id: req_71951e9cfd74431dae12d8e23e53d7ba
     parentId: fld_a8435265779b43d09dd1a84f64567db5
-    modified: 1667845950201
+    modified: 1667871561020
     created: 1667680488058
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
     name: Create OK
@@ -569,7 +569,7 @@ resources:
     _type: request
   - _id: req_cabe7ccc3df040d0900f91a5067ad312
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667861235993
+    modified: 1667875515581
     created: 1667860375874
     url: "{{host}}/reviews/"
     name: Review List
@@ -583,6 +583,30 @@ resources:
       token: "{{token_host}}"
       prefix: Token
     metaSortKey: -1667675619355.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0fb8a1b6d4334458aa2f495668030302
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667875512301
+    created: 1667873486955
+    url: "{{host}}/bookings/"
+    name: Booking List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667675619305.5
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -886,7 +910,7 @@ resources:
     _type: request_group
   - _id: req_8f9c8c5456954b669c4c13f34f6958f6
     parentId: fld_be116d3f94484b048e4c6a5265d6ea24
-    modified: 1667858671195
+    modified: 1667874839786
     created: 1667846250187
     url: "{{host}}/lodgings/"
     name: Create OK
@@ -989,7 +1013,7 @@ resources:
     _type: request
   - _id: req_c77995e6989d4957b7af95f23fcab897
     parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
-    modified: 1667846904417
+    modified: 1667874855160
     created: 1667846250168
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
     name: List
@@ -1051,7 +1075,7 @@ resources:
     _type: request
   - _id: req_151079d9b139472fa273abbe8121322e
     parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
-    modified: 1667858697679
+    modified: 1667874843116
     created: 1667846250164
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
     name: Create OK
@@ -1147,7 +1171,7 @@ resources:
     _type: request
   - _id: req_9bd91a5c703e44fc8d5693f4a7ba31bc
     parentId: fld_b5c133a691c7418baf7eec310f34d786
-    modified: 1667861389654
+    modified: 1667875545186
     created: 1667860408850
     url: "{{host}}/reviews/"
     name: Review List
@@ -1161,6 +1185,30 @@ resources:
       token: "{{token_host}}"
       prefix: Token
     metaSortKey: -1667675619355.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_57cceab9614f43bdbb7cf955d1bcf41a
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667875509001
+    created: 1667874872806
+    url: "{{host}}/bookings/"
+    name: Booking List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667675619305.5
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -1248,7 +1296,7 @@ resources:
     _type: request
   - _id: req_2bb01497bc3b4cbf868bd4cc39f18c67
     parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667847307408
+    modified: 1667870321342
     created: 1667672825817
     url: "{{host}}/accounts/"
     name: Create
@@ -1341,7 +1389,7 @@ resources:
     _type: request
   - _id: req_d3bd3aa302114dcaa7696da52cd9c95f
     parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667847286680
+    modified: 1667870323856
     created: 1667673058646
     url: "{{host}}/login/"
     name: Login
@@ -1545,7 +1593,7 @@ resources:
     _type: request
   - _id: req_046dbff745e04903a0a52d90270df036
     parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
-    modified: 1667859244800
+    modified: 1667875493782
     created: 1667858791941
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
     name: List
@@ -1701,9 +1749,173 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_0a009b7fc0eb404990feb505113e9d1a
+    parentId: fld_bb7a169354c94acd9686ab59930f1452
+    modified: 1667873340621
+    created: 1667873307308
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/bookings"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676024718.0586
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_bb7a169354c94acd9686ab59930f1452
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667864039896
+    created: 1667864028211
+    name: Bookings
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1667676118227.6875
+    _type: request_group
+  - _id: req_04ca8e1a710f41ca9186e263d119309d
+    parentId: fld_1bed3599dd7b41b58a2b2f48e1688a45
+    modified: 1667873221298
+    created: 1667864071513
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/bookings/"
+    name: Create (OK)
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"checkin_date": "2022-11-30",
+        	"checkout_date": "2022-12-{% prompt 'reserva_days', 'Quantos dias?', '1', '', false, true %}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675931245.9297
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1bed3599dd7b41b58a2b2f48e1688a45
+    parentId: fld_bb7a169354c94acd9686ab59930f1452
+    modified: 1667872317182
+    created: 1667864071510
+    name: Booking 1
+    description: ""
+    environment:
+      booking_id: "{% response 'body', 'req_04ca8e1a710f41ca9186e263d119309d',
+        'b64::JC5pZA==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - booking_id
+    metaSortKey: -1667676024668.0586
+    _type: request_group
+  - _id: req_53dafe1e83be4d0f98f805289f0d55df
+    parentId: fld_1bed3599dd7b41b58a2b2f48e1688a45
+    modified: 1667872703742
+    created: 1667864071523
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/bookings/{{ booking_id
+      }}/"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675915671.4082
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8665f7d1443047778e7fb0e2e7c8066e
+    parentId: fld_1bed3599dd7b41b58a2b2f48e1688a45
+    modified: 1667873222816
+    created: 1667864071516
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/bookings/{{ booking_id
+      }}/"
+    name: Update (OK)
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"checkout_date": "2022-12-{% prompt 'reserva_days', 'Quantos dias?', '1', '', false, true %}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675900096.8867
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3ab93b45ce624c1da44f140d310ddc3a
+    parentId: fld_1bed3599dd7b41b58a2b2f48e1688a45
+    modified: 1667872837572
+    created: 1667864071520
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/bookings/{{
+      booking_id}}/"
+    name: Delete (OK)
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675884522.3652
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_a3df3bf2590045168201dadf7dcd64bc
     parentId: fld_0677131fe0da49159404ebbe0ec68fe9
-    modified: 1667861527801
+    modified: 1667875495747
     created: 1667859432211
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
     name: List
@@ -1737,7 +1949,7 @@ resources:
     _type: request_group
   - _id: req_e1921bb0880143adb49a216c63e8f034
     parentId: fld_cecc22e2efe94112a1bfe244c50aec46
-    modified: 1667863877338
+    modified: 1667875478599
     created: 1667859860324
     url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
     name: Create (OK)
@@ -1771,7 +1983,7 @@ resources:
     _type: request
   - _id: fld_cecc22e2efe94112a1bfe244c50aec46
     parentId: fld_0677131fe0da49159404ebbe0ec68fe9
-    modified: 1667860022860
+    modified: 1667864466083
     created: 1667859844502
     name: Review 1
     description: ""
@@ -1905,7 +2117,7 @@ resources:
     _type: request_group
   - _id: req_f0d890ca536f42789f95d3149ca676d6
     parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
-    modified: 1667862826756
+    modified: 1667875484797
     created: 1667862802661
     url: "{{host}}/lodgings/{{lodging_id}}/reviews/"
     name: Review List
@@ -1929,7 +2141,7 @@ resources:
     _type: request
   - _id: req_29b35498fc2d48aa81a5d856577f8fe0
     parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667861505102
+    modified: 1667875550351
     created: 1667860420773
     url: "{{host}}/reviews/"
     name: Review List
@@ -1943,6 +2155,30 @@ resources:
       token: "{{token_guest}}"
       prefix: Token
     metaSortKey: -1667675619505.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cd9556cc2d2a4df29680da292594fb3c
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667875062320
+    created: 1667864057126
+    url: "{{host}}/bookings/"
+    name: Booking List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675619455.5
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -2013,7 +2249,7 @@ resources:
     _type: request
   - _id: req_c848c033c66847c58d9b20adec1e44b6
     parentId: fld_b23e90e0244f4543855a81fafb5e2447
-    modified: 1667858754104
+    modified: 1667873524305
     created: 1667847093412
     url: "{{host}}/lodgings/"
     name: List
