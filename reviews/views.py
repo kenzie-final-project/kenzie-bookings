@@ -7,6 +7,7 @@ from .permissions import IsOwnerOrReadOnly, IsGuest, IsAuthenticated
 from .models import Review
 from rooms.models import Room
 from lodgings.models import Lodging
+from bookings.models import Booking
 from bookings.permissions import IsGuestOrHostOrAdmin
 from bookings.mixins import UserTypeMixin
 from .serializers import ReviewSerializer
@@ -17,14 +18,7 @@ class LodgingReviewView (ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = []
     serializer_class = ReviewSerializer
-    """ def get(self, request, lodging_id):
-        lodging = get_object_or_404(Lodging, id=lodging_id)
-        rooms = Room.objects.filter(lodging=lodging)
-        reviews = Review.objects.filter(room__in=rooms)
-        serializer = ReviewSerializer(data=reviews, many=True)
-        serializer.is_valid(raise_exception=True)
 
-        return Response(serializer.data) """
     def get_queryset(self):
         lodging = get_object_or_404(Lodging, id=self.kwargs.get('lodging_id'))
         rooms = Room.objects.filter(lodging=lodging)
@@ -52,6 +46,10 @@ class ReviewView (ListCreateAPIView):
     def perform_create(self, serializer):
         room_id = self.kwargs.get('room_id')
         user = self.request.user
+
+        if Booking.objects.filter(user=user).exists() is False:
+            return Response({"detail": "No booking on this room"}, status=status.HTTP_400_NO_CONTENT)
+
         return serializer.save(room_id=room_id, user=user)
 
 
