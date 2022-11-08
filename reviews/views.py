@@ -3,15 +3,17 @@ from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView, ListAPIView
 from rest_framework.views import APIView, Request, Response, status
-from .permissions import IsOwnerOrReadOnly, IsGuest, IsHostOrAdmin, IsAuthenticated
+from .permissions import IsOwnerOrReadOnly, IsGuest, IsAuthenticated
 from .models import Review
 from rooms.models import Room
 from lodgings.models import Lodging
+from bookings.permissions import IsGuestOrHostOrAdmin
+from bookings.mixins import UserTypeMixin
 from .serializers import ReviewSerializer
 # Create your views here.
 
 
-class ListReviewFromLodgings(ListAPIView):
+class LodgingReviewView (ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = []
     serializer_class = ReviewSerializer
@@ -30,14 +32,14 @@ class ListReviewFromLodgings(ListAPIView):
         return reviews
 
 
-class RetrieveUpdateDestroyReview(RetrieveUpdateDestroyAPIView):
+class ReviewDetailView (RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = ReviewSerializer
     queryset = Review.objects
 
 
-class RoomReview (ListCreateAPIView):
+class ReviewView (ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = ReviewSerializer
@@ -53,15 +55,19 @@ class RoomReview (ListCreateAPIView):
         return serializer.save(room_id=room_id, user=user)
 
 
-class ListReview (ListAPIView):
+class GenericReviewView (UserTypeMixin, ListAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated, IsGuest]
-    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated, IsGuestOrHostOrAdmin]
     queryset = Review.objects
+    serializer_map = {
+        "admin": ReviewSerializer,
+        "host": ReviewSerializer,
+        "guest": ReviewSerializer,
+    }
 
-    def get_queryset(self):
+    """ def get_queryset(self):
         user = self.request.user
         if user.is_superuser:
             return self.queryset.all()
         else:
-            return self.queryset.filter(user_id=user.id)
+            return self.queryset.filter(user_id=user.id) """
