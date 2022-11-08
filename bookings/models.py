@@ -12,7 +12,7 @@ class Booking(models.Model):
     checkout_date = models.DateField()
     cost = models.DecimalField(max_digits=10, decimal_places=2)
 
-    account = models.OneToOneField(
+    user = models.OneToOneField(
         'accounts.Account',
         on_delete=models.CASCADE
     )
