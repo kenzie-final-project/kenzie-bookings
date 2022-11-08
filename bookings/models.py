@@ -12,12 +12,14 @@ class Booking(models.Model):
     checkout_date = models.DateField()
     cost = models.DecimalField(max_digits=10, decimal_places=2)
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         'accounts.Account',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='bookings'
     )
 
-    room = models.OneToOneField(
+    room = models.ForeignKey(
         'rooms.Room',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='bookings'
     )
