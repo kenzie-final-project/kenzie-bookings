@@ -3,6 +3,7 @@ from ..models import Review
 from lodgings.models import Lodging
 from rooms.models import Room
 from accounts.models import Account
+from bookings.models import Booking
 
 class TestViews(APITestCase):
     @classmethod
@@ -94,21 +95,108 @@ class TestViews(APITestCase):
         ]
         cls.reviews = [Review.objects.create(**review_data) for review_data in cls.review_datas]
 
-        def test_if_an_user_can_create_a_review(self):
-            user = {
-            "username": "user",
-            "password": "password"
-            }
-            token = self.client.post('/api/login/', user, format='json')
-            self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+    def test_if_an_user_can_create_a_review(self):
+        user = {
+        "username": "user",
+        "password": "password"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
 
-            review = {
-                "title": "Gostei, é mt bão",
-                "review": "Gostei demais, é bem legal...",
-                "stars": "5"
-            }
+        booking_data = {
+            "checkin_date": "2022-11-30",
+            "checkout_date": "2022-12-20",
+            "cost": 50.00,
+        }
 
-            response = self.client.post(f'lodgings/{self.lodgings[0]}/rooms/{self.rooms[0]}/reviews/', review, format='json')
+        self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/bookings/', booking_data, format='json')
 
-            self.assertEqual(response.status_code, 201)
-            self.assertEqual(response.data['stars'], "5")
+        review = {
+            "title": "Gostei, é mt bão",
+            "review": "Gostei demais, é bem legal...",
+            "stars": "5",
+        }
+
+        response = self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/reviews/', review, format='json')
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.data['stars'], 5)
+
+    def test_if_an_user_can_create_a_review_without_a_booking(self):
+        user = {
+        "username": "user",
+        "password": "password"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        review = {
+            "title": "Gostei, é mt bão",
+            "review": "Gostei demais, é bem legal...",
+            "stars": "5",
+        }
+        response = 400
+        try:
+            response = self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/reviews/', review, format='json')
+    
+        except AttributeError:
+            self.assertEqual(response, 400)
+
+    def test_if_an_user_can_update_a_review(self):
+        user = {
+        "username": "user",
+        "password": "password"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        booking_data = {
+            "checkin_date": "2022-11-30",
+            "checkout_date": "2022-12-20",
+            "cost": 50.00,
+        }
+
+        self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/bookings/', booking_data, format='json')
+
+        review = {
+            "title": "Gostei, é mt bão",
+            "review": "Gostei demais, é bem legal...",
+            "stars": "5",
+        }
+
+        response = self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/reviews/', review, format='json')
+
+        updated_review = {
+            'title': "Na verdade é mais ou menos"
+        }
+        update = self.client.patch(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/reviews/{response.data["id"]}/', updated_review, format='json')
+
+        self.assertEqual(update.status_code, 200)
+        self.assertEqual(update.data['title'], "Na verdade é mais ou menos")
+
+    def test_if_an_user_can_delete_a_review(self):
+        user = {
+        "username": "user",
+        "password": "password"
+        }
+        token = self.client.post('/api/login/', user, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
+
+        booking_data = {
+            "checkin_date": "2022-11-30",
+            "checkout_date": "2022-12-20",
+            "cost": 50.00,
+        }
+
+        self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/bookings/', booking_data, format='json')
+
+        review = {
+            "title": "Gostei, é mt bão",
+            "review": "Gostei demais, é bem legal...",
+            "stars": "5",
+        }
+
+        response = self.client.post(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/reviews/', review, format='json')
+
+        delete = self.client.delete(f'/api/lodgings/{self.rooms[0].lodging.id}/rooms/{self.rooms[0].id}/reviews/{response.data["id"]}/')
+
+        self.assertEqual(delete.status_code, 204)
