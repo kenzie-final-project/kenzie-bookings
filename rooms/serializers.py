@@ -8,7 +8,7 @@ from lodgings.serializers import LodgingSerializer
 
 class RoomSerializer(serializers.ModelSerializer):
     # id = serializers.IntegerField(read_only=True)
-    # lodging = LodgingSerializer(read_only=True)
+    lodging = LodgingSerializer(write_only=True)
     stars = serializers.SerializerMethodField()
 
     class Meta:
