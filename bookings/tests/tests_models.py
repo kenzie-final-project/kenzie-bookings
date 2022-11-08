@@ -2,6 +2,7 @@ from rest_framework.test import APITestCase, APIClient
 
 from ..models import Booking
 
+
 class BookingTest(APITestCase):
     @classmethod
     def setUpTestData(cls) -> None:

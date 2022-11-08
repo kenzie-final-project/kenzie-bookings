@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ("checkout_date", models.DateField()),
                 ("cost", models.DecimalField(decimal_places=2, max_digits=10)),
                 (
-                    "account",
+                    "user",
                     models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
