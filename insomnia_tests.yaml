@@ -1,14 +1,101 @@
 _type: export
 __export_format: 4
-__export_date: 2022-11-06T19:06:02.170Z
+__export_date: 2022-11-07T23:32:13.821Z
 __export_source: insomnia.desktop.app:v2022.6.0
 resources:
+  - _id: req_a6f0cc2b201c43c78c2bd1800141b5c7
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667847175128
+    created: 1667847145101
+    url: "{{host}}/accounts/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667675619605.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_f810c71dab1d43698b677591c081c373
+    parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
+    modified: 1667846582880
+    created: 1667678297883
+    name: Host1
+    description: ""
+    environment:
+      username: hostuser1
+      email: host@mail.com
+      password: password
+      name: hoster1
+      phone: "12939394"
+      cpf: "12345678901"
+      is_host: true
+      id: "{% response 'body', 'req_8d63997754af4239b40bc9d18437d449',
+        'b64::JC51dWlk::46b', 'never', 60 %}"
+      token_host: "{% response 'body', 'req_8d63997754af4239b40bc9d18437d449',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - username
+        - email
+        - password
+        - name
+        - phone
+        - cpf
+        - is_host
+        - id
+        - token_host
+    metaSortKey: -1667679605237
+    _type: request_group
+  - _id: wrk_9e9af514270f4befaa73141c6bdd6ccf
+    parentId: null
+    modified: 1667670167919
+    created: 1667670167919
+    name: tests.yaml
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_0bd9029a172c4571a4a88ceaa337919b
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667847327102
+    created: 1667847244347
+    url: "{{host}}/accounts/{{id}}"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ token_host }}"
+      prefix: Token
+    metaSortKey: -1667675619580.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_032f4045a5014155ad75bce80323c56e
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667679131277
+    modified: 1667846434899
     created: 1667678268559
     url: "{{host}}/accounts/"
-    name: Create Host
+    name: Create
     description: ""
     method: POST
     body:
@@ -19,9 +106,10 @@ resources:
         	"email":"{{email}}",
         	"password":"{{password}}",
         	"fist_name":"{{name}}",
-        	"last_name":"{{name}}",
+        	"last_name":"HOST",
         	"phone":"{{phone}}",
-        	"cpf":"{{cpf}}"
+        	"cpf":"{{cpf}}",
+        	"is_host":"{{is_host}}"
         }
     parameters: []
     headers:
@@ -37,48 +125,12 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_f810c71dab1d43698b677591c081c373
-    parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
-    modified: 1667680424552
-    created: 1667678297883
-    name: Host
-    description: ""
-    environment:
-      username: hostuser
-      email: host@mail.com
-      password: password
-      name: hoster
-      phone: "12939394"
-      cpf: "12345678901"
-      is_host: true
-      id: "{% response 'body', 'req_032f4045a5014155ad75bce80323c56e',
-        'b64::JC5pZA==::46b', 'never', 60 %}"
-    environmentPropertyOrder:
-      "&":
-        - username
-        - email
-        - password
-        - name
-        - phone
-        - cpf
-        - is_host
-        - id
-    metaSortKey: -1667679605237
-    _type: request_group
-  - _id: wrk_9e9af514270f4befaa73141c6bdd6ccf
-    parentId: null
-    modified: 1667670167919
-    created: 1667670167919
-    name: tests.yaml
-    description: ""
-    scope: design
-    _type: workspace
   - _id: req_7e83e3a7c1264be982f6feabcc53261a
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667679463073
+    modified: 1667846431884
     created: 1667678310952
     url: "{{host}}/accounts/{{id}}"
-    name: Update Host
+    name: Update
     description: ""
     method: PATCH
     body:
@@ -87,7 +139,7 @@ resources:
         {
         	"email":"{{email}}",
         	"password":"{{password}}",
-        	"name":"{{name}}",
+        	"first_name":"{{name}}",
         	"phone":"{{phone}}",
         	"is_host": "{{is_host}}"
         }
@@ -109,12 +161,36 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: req_67fe4749437542fca2519ce5b02a9a82
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667846469537
+    created: 1667846420183
+    url: "{{host}}/accounts/{{id}}"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      prefix: Token
+      token: "{{ _.token_host }}"
+    metaSortKey: -1667675619480.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: req_8d63997754af4239b40bc9d18437d449
     parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667679554235
+    modified: 1667858640031
     created: 1667678321019
     url: "{{host}}/login/"
-    name: Login Host
+    name: Login
     description: ""
     method: POST
     body:
@@ -138,19 +214,22 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_a48ae455925141dba063ce46c246ed86
-    parentId: fld_cbfe146febe94765b922d1ff4aab5da5
-    modified: 1667759610874
-    created: 1667759610874
-    url: "{{url}}rooms/"
-    name: List - 200
+  - _id: req_7edf594395524566987efed8670d89c2
+    parentId: fld_69f2918534aa44b3a440986ed5f45514
+    modified: 1667846221025
+    created: 1667761244606
+    url: "{{host}}/lodgings/"
+    name: List
     description: ""
     method: GET
     body: {}
     parameters: []
     headers: []
-    authentication: {}
-    metaSortKey: -1667639014451
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667678893026
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -159,51 +238,32 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_cbfe146febe94765b922d1ff4aab5da5
-    parentId: fld_fc7d75d3b9a9495e837940818b746f50
-    modified: 1667759610872
-    created: 1667759610872
-    name: General
+  - _id: fld_69f2918534aa44b3a440986ed5f45514
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667680427916
+    created: 1667679605187
+    name: Lodgings
     description: ""
     environment: {}
     environmentPropertyOrder: null
-    metaSortKey: -1667684526256
+    metaSortKey: -1667675619405.5
     _type: request_group
-  - _id: fld_fc7d75d3b9a9495e837940818b746f50
-    parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667759627111
-    created: 1667759610871
-    name: rooms
+  - _id: req_65bcdc7ae2c14b35a4e009a82c0be49a
+    parentId: fld_fe35557ee823440fbb49f76d3821080b
+    modified: 1667769094597
+    created: 1667761306916
+    url: "{{host}}/lodgings/{{lodging_id}}"
+    name: Get
     description: ""
-    environment: {}
-    environmentPropertyOrder: {}
-    metaSortKey: -1667675619430.5
-    _type: request_group
-  - _id: req_cf84a3b42d014e1898e832d8f2021632
-    parentId: fld_cbfe146febe94765b922d1ff4aab5da5
-    modified: 1667759610877
-    created: 1667759610877
-    url: "{{url}}rooms/"
-    name: Create - 201
-    description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        		"number": 1,
-        		"cost": 100,
-        		"occupation": 2,
-        		"available": "True",
-        		"description": "Quarto com cama de casal",
-        		"lodging": 1
-        }
+    method: GET
+    body: {}
     parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-    authentication: {}
-    metaSortKey: -1667639014401
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667679609133
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -212,9 +272,43 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
+  - _id: fld_fe35557ee823440fbb49f76d3821080b
+    parentId: fld_69f2918534aa44b3a440986ed5f45514
+    modified: 1667761319284
+    created: 1667679628799
+    name: Hotel California
+    description: ""
+    environment:
+      category: Hotel
+      name: Hotel California
+      state: São Paulo
+      city: São Paulo
+      district: Centro
+      street: Avenida Senador Queiros
+      number: "202"
+      cep: "01026000"
+      description: Welcome to the Hotel California, such a lovely place, such a lovely
+        face. Plenty of room at the Hotel California, any time of year, you can
+        find it here...
+      lodging_id: "{% response 'body', 'req_a83b50a39d384174b6eb0b337fb4be6c',
+        'b64::JC5pZA==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - category
+        - name
+        - state
+        - city
+        - district
+        - street
+        - number
+        - cep
+        - description
+        - lodging_id
+    metaSortKey: -1667678892976
+    _type: request_group
   - _id: req_a83b50a39d384174b6eb0b337fb4be6c
     parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667761510918
+    modified: 1667846135812
     created: 1667679609083
     url: "{{host}}/lodgings/"
     name: Create OK
@@ -251,25 +345,530 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: fld_fe35557ee823440fbb49f76d3821080b
-    parentId: fld_69f2918534aa44b3a440986ed5f45514
-    modified: 1667680835783
-    created: 1667679628799
-    name: Hotel California
+  - _id: req_fd5707cd66f04ba4b4579a928d9314e2
+    parentId: fld_fe35557ee823440fbb49f76d3821080b
+    modified: 1667846143628
+    created: 1667846131349
+    url: "{{host}}/lodgings/{{lodging_id}}/"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"category": "{{category}}",
+        	"name": "{{name}}",
+        	"state": "{{state}}",
+        	"city": "{{city}}",
+        	"district": "{{district}}",
+        	"street": "{{street}}",
+        	"number": "{{number}}",
+        	"cep": "{{cep}}",
+        	"description": "{{description}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667679430068.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_63cde594a20e4f51a4de4d6161b5f2d4
+    parentId: fld_fe35557ee823440fbb49f76d3821080b
+    modified: 1667846094700
+    created: 1667846057248
+    url: "{{host}}/lodgings/{{ lodging_id }}"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667679251054.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b01514b2751443ec97d2f01abe17ea37
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667769414702
+    created: 1667769274924
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676616949.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_a8435265779b43d09dd1a84f64567db5
+    parentId: fld_fe35557ee823440fbb49f76d3821080b
+    modified: 1667845916774
+    created: 1667680407788
+    name: Rooms
+    description: ""
+    environment:
+      room_id: "{% response 'body', 'req_b01514b2751443ec97d2f01abe17ea37',
+        'b64::JFsoQC5sZW5ndGgtMSldLm51bWJlcg==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - room_id
+    metaSortKey: -1667676616949.875
+    _type: request_group
+  - _id: req_4ca237b7916144afb2385bec17afc599
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667846024710
+    created: 1667845933671
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676616924.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_71951e9cfd74431dae12d8e23e53d7ba
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667845950201
+    created: 1667680488058
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
+    name: Create OK
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"number": "{% prompt 'room_number', 'Number', '1', '', false, true %}",
+        	"cost": 100.00,
+        	"occupation": 2,
+        	"available": true,
+        	"description": "Quarto com cama de casal"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676616899.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7b039c4f851746d8a7db052634fb89cb
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667846128154
+    created: 1667845979108
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"number": "{% prompt 'room_number', 'Number', '1', '', false, true %}",
+        	"cost": 100.00,
+        	"occupation": 2,
+        	"available": true,
+        	"description": "Quarto com cama de casal"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676118302.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_45da26f1c56a49979f0128fa5bd1505d
+    parentId: fld_a8435265779b43d09dd1a84f64567db5
+    modified: 1667846115191
+    created: 1667846101767
+    url: "{{host}}/lodgings/{{ lodging_id }}/rooms/{{room_id}}/"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676118252.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cabe7ccc3df040d0900f91a5067ad312
+    parentId: fld_f810c71dab1d43698b677591c081c373
+    modified: 1667861235993
+    created: 1667860375874
+    url: "{{host}}/reviews/"
+    name: Review List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667675619355.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3bcf635233a04fc594db3e47a75cdf54
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667847188259
+    created: 1667847154685
+    url: "{{host}}/accounts/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667675619580.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b5c133a691c7418baf7eec310f34d786
+    parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
+    modified: 1667858835175
+    created: 1667846250156
+    name: Host2
+    description: ""
+    environment:
+      username: hostuser2
+      email: host@mail.com
+      password: password
+      name: hoster2
+      phone: "12939394"
+      cpf: "12345678901"
+      is_host: true
+      id: "{% response 'body', 'req_b4e66569e27b4283879c10061a5b5690',
+        'b64::JC51dWlk::46b', 'never', 60 %}"
+      token_host: "{% response 'body', 'req_b4e66569e27b4283879c10061a5b5690',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - username
+        - email
+        - password
+        - name
+        - phone
+        - cpf
+        - is_host
+        - id
+        - token_host
+    metaSortKey: -1667679249119
+    _type: request_group
+  - _id: req_b3143dbce6994b12bc23bc125e1e62a3
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667847321754
+    created: 1667847222460
+    url: "{{host}}/accounts/{{id}}"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ token_host }}"
+      prefix: Token
+    metaSortKey: -1667675619568
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ddeab78cce5748df859ac1d8517a50aa
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667846619188
+    created: 1667846250220
+    url: "{{host}}/accounts/"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username":"{{username}}",
+        	"email":"{{email}}",
+        	"password":"{{password}}",
+        	"first_name":"{{name}}",
+        	"last_name":"HOST",
+        	"phone":"{{phone}}",
+        	"cpf":"{{cpf}}",
+        	"is_host":"{{is_host}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1667675619555.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_56ded9d044034cacb9c68d2ebb507eb9
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667846667916
+    created: 1667846250224
+    url: "{{host}}/accounts/{{id}}"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"{{email}}",
+        	"password":"{{password}}",
+        	"first_name":"{{name}}",
+        	"phone":"{{phone}}",
+        	"is_host": "{{is_host}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_512e8dee0db74d4b8224bdcb35dc97db
+    authentication:
+      type: bearer
+      prefix: Token
+      token: "{{ _.token_host }}"
+    metaSortKey: -1667675619505.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7d18b0cae20a401fa2548ac08673c6e5
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667846662964
+    created: 1667846481288
+    url: "{{host}}/accounts/{{id}}"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      prefix: Token
+      token: "{{ _.token_host }}"
+    metaSortKey: -1667675619480.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b4e66569e27b4283879c10061a5b5690
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667858653444
+    created: 1667846250228
+    url: "{{host}}/login/"
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username":"{{username}}",
+        	"password":"{{password}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1667675619455.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bef20d0d4d734efbbbb6061e442475e2
+    parentId: fld_876ed8e07aae40cbae0aff43738ce724
+    modified: 1667846900556
+    created: 1667846250214
+    url: "{{host}}/lodgings/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667678893026
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_876ed8e07aae40cbae0aff43738ce724
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667858821578
+    created: 1667846250158
+    name: Lodgings
+    description: ""
+    environment: {}
+    environmentPropertyOrder: {}
+    metaSortKey: -1667675619405.5
+    _type: request_group
+  - _id: req_8b1ff6fbece14275a5b8055849c2eb05
+    parentId: fld_be116d3f94484b048e4c6a5265d6ea24
+    modified: 1667846845654
+    created: 1667846250200
+    url: "{{host}}/lodgings/{{lodging_id}}"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667679609133
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_be116d3f94484b048e4c6a5265d6ea24
+    parentId: fld_876ed8e07aae40cbae0aff43738ce724
+    modified: 1667859205375
+    created: 1667846250159
+    name: Tetris Container
     description: ""
     environment:
       category: Hotel
-      name: Hotel California
-      state: São Paulo
-      city: São Paulo
+      name: Tetris Container
+      state: Paraná
+      city: Foz do Iguaçu
       district: Centro
-      street: Avenida Senador Queiros
+      street: Avenida das Cataratas
       number: "202"
       cep: "01026000"
-      description: Welcome to the Hotel California, such a lovely place, such a lovely
-        face. Plenty of room at the Hotel California, any time of year, you can
-        find it here...
-      lodging_id: "{% response 'body', 'req_a83b50a39d384174b6eb0b337fb4be6c',
+      description: Muita festa e curtição para suas férias!
+      lodging_id: "{% response 'body', 'req_8f9c8c5456954b669c4c13f34f6958f6',
         'b64::JC5pZA==::46b', 'never', 60 %}"
     environmentPropertyOrder:
       "&":
@@ -285,22 +884,12 @@ resources:
         - lodging_id
     metaSortKey: -1667678892976
     _type: request_group
-  - _id: fld_69f2918534aa44b3a440986ed5f45514
-    parentId: fld_f810c71dab1d43698b677591c081c373
-    modified: 1667680427916
-    created: 1667679605187
-    name: Lodgings
-    description: ""
-    environment: {}
-    environmentPropertyOrder: null
-    metaSortKey: -1667675619405.5
-    _type: request_group
-  - _id: req_2aba47c2d3d44d929c0661f06062dd33
-    parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667680380856
-    created: 1667679706572
+  - _id: req_8f9c8c5456954b669c4c13f34f6958f6
+    parentId: fld_be116d3f94484b048e4c6a5265d6ea24
+    modified: 1667858671195
+    created: 1667846250187
     url: "{{host}}/lodgings/"
-    name: Create Fail (Invalid)
+    name: Create OK
     description: ""
     method: POST
     body:
@@ -310,10 +899,12 @@ resources:
         	"category": "{{category}}",
         	"name": "{{name}}",
         	"state": "{{state}}",
+        	"city": "{{city}}",
         	"district": "{{district}}",
         	"street": "{{street}}",
         	"number": "{{number}}",
-        	"cep": "{{cep}}"
+        	"cep": "{{cep}}",
+        	"description": "{{description}}"
         }
     parameters: []
     headers:
@@ -322,6 +913,626 @@ resources:
     authentication:
       type: bearer
       token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667679609083
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5dd7592b1fd044ab87e4ef86f5bd9b85
+    parentId: fld_be116d3f94484b048e4c6a5265d6ea24
+    modified: 1667858687864
+    created: 1667846250208
+    url: "{{host}}/lodgings/{{lodging_id}}/"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"category": "{{category}}",
+        	"name": "{{name}}",
+        	"state": "{{state}}",
+        	"city": "{{city}}",
+        	"district": "{{district}}",
+        	"street": "{{street}}",
+        	"number": "{{number}}",
+        	"cep": "{{cep}}",
+        	"description": "{{description}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667679430068.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_150866121404423191a99fcd073f012e
+    parentId: fld_be116d3f94484b048e4c6a5265d6ea24
+    modified: 1667846858252
+    created: 1667846250204
+    url: "{{host}}/lodgings/{{ lodging_id }}"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667679251054.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c77995e6989d4957b7af95f23fcab897
+    parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
+    modified: 1667846904417
+    created: 1667846250168
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676616949.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_6c4f18d73c8b40d0abe4e10557b006e7
+    parentId: fld_be116d3f94484b048e4c6a5265d6ea24
+    modified: 1667846250161
+    created: 1667846250161
+    name: Rooms
+    description: ""
+    environment:
+      room_id: "{% response 'body', 'req_b01514b2751443ec97d2f01abe17ea37',
+        'b64::JFsoQC5sZW5ndGgtMSldLm51bWJlcg==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - room_id
+    metaSortKey: -1667676616949.875
+    _type: request_group
+  - _id: req_3011dd6bac5b48e99eeea74600611af9
+    parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
+    modified: 1667846250172
+    created: 1667846250172
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676616924.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_151079d9b139472fa273abbe8121322e
+    parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
+    modified: 1667858697679
+    created: 1667846250164
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
+    name: Create OK
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"number": "{% prompt 'room_number', 'Number', '1', '', false, true %}",
+        	"cost": 100.00,
+        	"occupation": 2,
+        	"available": true,
+        	"description": "Quarto com cama de casal"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676616899.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6f2583fb7ec5423b92327499081c9556
+    parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
+    modified: 1667846250176
+    created: 1667846250176
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"number": "{% prompt 'room_number', 'Number', '1', '', false, true %}",
+        	"cost": 100.00,
+        	"occupation": 2,
+        	"available": true,
+        	"description": "Quarto com cama de casal"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676118302.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c2e18c0e3644478c906b0942e464147b
+    parentId: fld_6c4f18d73c8b40d0abe4e10557b006e7
+    modified: 1667846250180
+    created: 1667846250180
+    url: "{{host}}/lodgings/{{ lodging_id }}/rooms/{{room_id}}/"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_host }}"
+      prefix: Token
+    metaSortKey: -1667676118252.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9bd91a5c703e44fc8d5693f4a7ba31bc
+    parentId: fld_b5c133a691c7418baf7eec310f34d786
+    modified: 1667861389654
+    created: 1667860408850
+    url: "{{host}}/reviews/"
+    name: Review List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_host}}"
+      prefix: Token
+    metaSortKey: -1667675619355.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_40a1acca020a4d008b65016f98c07196
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667847204625
+    created: 1667847111320
+    url: "{{host}}/accounts/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+    metaSortKey: -1667847111320
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
+    modified: 1667858842262
+    created: 1667678277155
+    name: Guest
+    description: ""
+    environment:
+      username: guestuser
+      email: guester@mail.com
+      password: password
+      name: guester
+      phone: "12939394"
+      cpf: "12345678901"
+      id: "{% response 'body', 'req_2bb01497bc3b4cbf868bd4cc39f18c67',
+        'b64::JC5pZA==::46b', 'never', 60 %}"
+      token_guest: "{% response 'body', 'req_d3bd3aa302114dcaa7696da52cd9c95f',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - username
+        - email
+        - password
+        - name
+        - phone
+        - cpf
+        - id
+        - token_guest
+    metaSortKey: -1667678893001
+    _type: request_group
+  - _id: req_68647c09e38547b8b22a3c105eae63d1
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667847312219
+    created: 1667847135428
+    url: "{{host}}/accounts/{{id}}"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+    metaSortKey: -1667763360226.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2bb01497bc3b4cbf868bd4cc39f18c67
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667847307408
+    created: 1667672825817
+    url: "{{host}}/accounts/"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username":"{{username}}",
+        	"email":"{{email}}",
+        	"password":"{{password}}",
+        	"first_name":"{{name}}",
+        	"first_name":"GUEST",
+        	"phone":"{{phone}}",
+        	"cpf":"{{cpf}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1667675619705.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c14a385ced6f431ea18b15985e530b9c
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667846459937
+    created: 1667673030960
+    url: "{{host}}/accounts/{{id}}"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"{{email}}",
+        	"password":"{{password}}",
+        	"first_name":"{{name}}",
+        	"phone":"{{phone}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_512e8dee0db74d4b8224bdcb35dc97db
+    authentication:
+      type: bearer
+      prefix: Token
+      token: "{{token_guest}}"
+    metaSortKey: -1667675619655.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_035093f7ef164c4ca44dbb6a64ef8008
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667846574298
+    created: 1667846498043
+    url: "{{host}}/accounts/{{id}}"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      prefix: Token
+      token: "{{ _.token_guest }}"
+    metaSortKey: -1667675619630.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d3bd3aa302114dcaa7696da52cd9c95f
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667847286680
+    created: 1667673058646
+    url: "{{host}}/login/"
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username":"{{username}}",
+        	"password":"{{password}}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1667675619605.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fa821dc8d4654d428588d40d347ccb10
+    parentId: fld_dc2c06b19bdf43ebb2ffb5177bcb33b2
+    modified: 1667861519740
+    created: 1667846184915
+    url: "{{host}}/lodgings/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+    metaSortKey: -1667675619630.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_dc2c06b19bdf43ebb2ffb5177bcb33b2
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667858811643
+    created: 1667846172525
+    name: Lodgings
+    description: ""
+    environment: {}
+    environmentPropertyOrder: {}
+    metaSortKey: -1667675619555.5
+    _type: request_group
+  - _id: req_3e6707b5cd5c4f679c943d439c5d3c41
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667861516245
+    created: 1667858791972
+    url: "{{host}}/lodgings/{{lodging_id}}"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ token_guest }}"
+      prefix: Token
+    metaSortKey: -1667679609133
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    parentId: fld_dc2c06b19bdf43ebb2ffb5177bcb33b2
+    modified: 1667863826926
+    created: 1667858791928
+    name: Last Lodgings
+    description: ""
+    environment:
+      lodging_id: "{% response 'body', 'req_fa821dc8d4654d428588d40d347ccb10',
+        'b64::JFsoQC5sZW5ndGgtMSldLmlk::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - lodging_id
+    metaSortKey: -1667675619580.5
+    _type: request_group
+  - _id: req_f729d20cc71842a28c60101e29c7f274
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667859225424
+    created: 1667858985855
+    url: "{{host}}/lodgings/{{lodging_id}}/"
+    name: Update (Fail)
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"category": "Resort",
+        	"name": "Error",
+        	"state": "Error",
+        	"city": "Error",
+        	"district": "Error",
+        	"street": "Error",
+        	"number": "404",
+        	"cep": "404040404",
+        	"description": "Error error error error"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667679430093.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_53658925998c481f8b7ec0a65a2890d4
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667859181227
+    created: 1667858791976
+    url: "{{host}}/lodgings/{{ lodging_id }}"
+    name: Delete (Fail)
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667679251054.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d433dfb80d114964923c0a2464fab83a
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667859216071
+    created: 1667858791967
+    url: "{{host}}/lodgings/"
+    name: Create Fail (Fail)
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"category": "Hotel",
+        	"name": "Tetris Container",
+        	"state": "Paraná",
+        	"city": "Foz do Iguaçu",
+        	"district": "Centro",
+        	"street": "Avenida das Cataratas",
+        	"number": "202",
+        	"cep": "01026000",
+        	"description": "Muita festa e curtição para suas férias!",
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
       prefix: Token
     metaSortKey: -1667676617049.875
     isPrivate: false
@@ -332,10 +1543,513 @@ resources:
     settingRebuildPath: true
     settingFollowRedirects: global
     _type: request
-  - _id: req_5588b63a2601437e994106bfe626a96a
-    parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667680388713
-    created: 1667679698571
+  - _id: req_046dbff745e04903a0a52d90270df036
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667859244800
+    created: 1667858791941
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676616949.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b8fbc04a70964d649fdcee6edb3c3519
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667863858852
+    created: 1667858791931
+    name: Rooms
+    description: ""
+    environment:
+      room_id: "{% response 'body', 'req_046dbff745e04903a0a52d90270df036',
+        'b64::JFsoQC5sZW5ndGgtMSldLmlk::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - room_id
+    metaSortKey: -1667676616949.875
+    _type: request_group
+  - _id: req_3d1fa1b7ab9740e9a0ff9f57b6995f86
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667859452563
+    created: 1667858791944
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676616924.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_77dba5ae9a784bbea72bd81bd36e24be
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667863710913
+    created: 1667858791935
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
+    name: Create (Fail)
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"number": "{% prompt 'room_number', 'Number', '1', '', false, true %}",
+        	"cost": 100.00,
+        	"occupation": 2,
+        	"available": true,
+        	"description": "Quarto com cama de casal"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676616899.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_cc2f94645d0745bc8f9f2d7bbefb8c23
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667859295369
+    created: 1667858791948
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/"
+    name: Update (Fail)
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"number": "{% prompt 'room_number', 'Number', '1', '', false, true %}",
+        	"cost": 100.00,
+        	"occupation": 2,
+        	"available": true,
+        	"description": "Quarto com cama de casal"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676118302.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_33ca92728b2d4b2b9d6df6accfa4a7c4
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667859292740
+    created: 1667858791952
+    url: "{{host}}/lodgings/{{ lodging_id }}/rooms/{{room_id}}/"
+    name: Delete (Fail)
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676118252.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a3df3bf2590045168201dadf7dcd64bc
+    parentId: fld_0677131fe0da49159404ebbe0ec68fe9
+    modified: 1667861527801
+    created: 1667859432211
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676118190.1875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_0677131fe0da49159404ebbe0ec68fe9
+    parentId: fld_b8fbc04a70964d649fdcee6edb3c3519
+    modified: 1667859591105
+    created: 1667859417977
+    name: Reviews
+    description: ""
+    environment: {}
+    environmentPropertyOrder: {}
+    metaSortKey: -1667676118202.6875
+    _type: request_group
+  - _id: req_e1921bb0880143adb49a216c63e8f034
+    parentId: fld_cecc22e2efe94112a1bfe244c50aec46
+    modified: 1667863877338
+    created: 1667859860324
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/"
+    name: Create (OK)
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"title": "Gostei, é mt bão",
+        	"review": "Gostei demais, é bem legal...",
+        	"stars": "5"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675931245.9297
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cecc22e2efe94112a1bfe244c50aec46
+    parentId: fld_0677131fe0da49159404ebbe0ec68fe9
+    modified: 1667860022860
+    created: 1667859844502
+    name: Review 1
+    description: ""
+    environment:
+      review_id: "{% response 'body', 'req_e1921bb0880143adb49a216c63e8f034',
+        'b64::JC5pZA==::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - review_id
+    metaSortKey: -1667676055867.1016
+    _type: request_group
+  - _id: req_998681ebdb35402591fd2e6555072b1b
+    parentId: fld_cecc22e2efe94112a1bfe244c50aec46
+    modified: 1667862223991
+    created: 1667859906297
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}/"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675915671.4082
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fb0b1d4dc4cc4fc989ee3f96a1ed96e6
+    parentId: fld_cecc22e2efe94112a1bfe244c50aec46
+    modified: 1667862293298
+    created: 1667859876801
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}/"
+    name: Update (OK)
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"title": "Não gostei, muito ruim",
+        	"review": "Não gostei, a cama é pequena e...",
+        	"stars": "3"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_a61206b0a07a4fa2afb92e1184cbade0
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675900096.8867
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7868e6bb7e084212a26f1953cfa6e6dd
+    parentId: fld_cecc22e2efe94112a1bfe244c50aec46
+    modified: 1667862250439
+    created: 1667859892619
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}/"
+    name: Delete (OK)
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675884522.3652
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_09dbf988da1140659d5c640ae9e3ac20
+    parentId: fld_7334098192714eb3aa4e7f5bd4ad8b98
+    modified: 1667859750237
+    created: 1667859500264
+    url: "{{host}}/lodgings/{{lodging_id}}/rooms/{{room_id}}/reviews/{{review_id}}"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667675868947.8438
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7334098192714eb3aa4e7f5bd4ad8b98
+    parentId: fld_0677131fe0da49159404ebbe0ec68fe9
+    modified: 1667859695197
+    created: 1667859533799
+    name: Last Review
+    description: ""
+    environment:
+      review_id: "{% response 'body', 'req_a3df3bf2590045168201dadf7dcd64bc',
+        'b64::JFsoQC5sZW5ndGgtMSldLmlk::46b', 'never', 60 %}"
+    environmentPropertyOrder:
+      "&":
+        - review_id
+    metaSortKey: -1667675868897.8438
+    _type: request_group
+  - _id: req_f0d890ca536f42789f95d3149ca676d6
+    parentId: fld_35ef2112f9a6416fafb2df0fed9c7a7b
+    modified: 1667862826756
+    created: 1667862802661
+    url: "{{host}}/lodgings/{{lodging_id}}/reviews/"
+    name: Review List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{ _.token_guest }}"
+      prefix: Token
+    metaSortKey: -1667676616899.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_29b35498fc2d48aa81a5d856577f8fe0
+    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
+    modified: 1667861505102
+    created: 1667860420773
+    url: "{{host}}/reviews/"
+    name: Review List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+    metaSortKey: -1667675619505.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5ea866af1f664650a8997665910cf0f3
+    parentId: fld_7089d1423d8d41d0a27f94b5bced61c8
+    modified: 1667847259768
+    created: 1667847256456
+    url: "{{host}}/accounts/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+      disabled: true
+    metaSortKey: -1667847067812
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7089d1423d8d41d0a27f94b5bced61c8
+    parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
+    modified: 1667847035069
+    created: 1667847021416
+    name: Anonimo
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1667678892951
+    _type: request_group
+  - _id: req_cdf177be6a9d44eeb38052178dc8601b
+    parentId: fld_7089d1423d8d41d0a27f94b5bced61c8
+    modified: 1667847292997
+    created: 1667847264108
+    url: "{{host}}/accounts/c872e507-0b36-4b35-8797-e4e2eee396f0"
+    name: Get
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+      disabled: true
+    metaSortKey: -1667847067787
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c848c033c66847c58d9b20adec1e44b6
+    parentId: fld_b23e90e0244f4543855a81fafb5e2447
+    modified: 1667858754104
+    created: 1667847093412
+    url: "{{host}}/lodgings/"
+    name: List
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{{token_guest}}"
+      prefix: Token
+      disabled: true
+    metaSortKey: -1667675619511.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b23e90e0244f4543855a81fafb5e2447
+    parentId: fld_7089d1423d8d41d0a27f94b5bced61c8
+    modified: 1667847067762
+    created: 1667847067762
+    name: Lodgings
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1667847067762
+    _type: request_group
+  - _id: req_0b6556d2538f4e9a86d14f3478a1423b
+    parentId: fld_b23e90e0244f4543855a81fafb5e2447
+    modified: 1667859023566
+    created: 1667858791963
     url: "{{host}}/lodgings/"
     name: Create Fail (Guest)
     description: ""
@@ -362,252 +2076,7 @@ resources:
       type: bearer
       token: "{{ _.token_guest }}"
       prefix: Token
-    metaSortKey: -1667676616999.875
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: req_a0da5f3775204ede8f36062c0da08df2
-    parentId: fld_a8435265779b43d09dd1a84f64567db5
-    modified: 1667759841028
-    created: 1667759610883
-    url: "{{url}}rooms/1"
-    name: Filter
-    description: ""
-    method: GET
-    body: {}
-    parameters: []
-    headers: []
-    authentication: {}
-    metaSortKey: -1667676616999.875
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: fld_a8435265779b43d09dd1a84f64567db5
-    parentId: fld_fe35557ee823440fbb49f76d3821080b
-    modified: 1667680736520
-    created: 1667680407788
-    name: Rooms
-    description: ""
-    environment:
-      number: "{% prompt 'room_number', 'Number', '1', '', false, true %}"
-    environmentPropertyOrder:
-      "&":
-        - number
-    metaSortKey: -1667676616949.875
-    _type: request_group
-  - _id: req_71951e9cfd74431dae12d8e23e53d7ba
-    parentId: fld_a8435265779b43d09dd1a84f64567db5
-    modified: 1667759855286
-    created: 1667680488058
-    url: "{{host}}/lodgings/{{lodging_id}}/rooms/"
-    name: Create OK
-    description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        	"number": 1,
-        	"cost": 100.00,
-        	"occupation": 2,
-        	"available": true,
-        	"description": "Quarto com cama de casal"
-        }
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-    authentication:
-      type: bearer
-      token: "{{ _.token_host }}"
-      prefix: Token
-    metaSortKey: -1667676616987.375
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: req_adf9c34ec0784bb486324499805d4b3b
-    parentId: fld_a8435265779b43d09dd1a84f64567db5
-    modified: 1667759842972
-    created: 1667759610885
-    url: "{{url}}rooms/1"
-    name: Update
-    description: ""
-    method: PATCH
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        		"number": 1,
-        		"cost": 100,
-        		"occupation": 2,
-        		"available": "True",
-        		"description": "Quarto com cama de casal",
-        		"lodging": 1
-        }
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-    authentication: {}
-    metaSortKey: -1667676616974.875
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: req_d5e691d335f94f9aa55ee8c6df8f2717
-    parentId: fld_a8435265779b43d09dd1a84f64567db5
-    modified: 1667759844891
-    created: 1667759610888
-    url: "{{url}}rooms/1"
-    name: Delete
-    description: ""
-    method: DELETE
-    body: {}
-    parameters: []
-    headers: []
-    authentication: {}
-    metaSortKey: -1667676616962.375
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: req_2bb01497bc3b4cbf868bd4cc39f18c67
-    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667679560558
-    created: 1667672825817
-    url: "{{host}}/accounts/"
-    name: Create Guest
-    description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        	"username":"{{username}}",
-        	"email":"{{email}}",
-        	"password":"{{password}}",
-        	"name":"{{name}}",
-        	"phone":"{{phone}}"
-        }
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-    authentication: {}
-    metaSortKey: -1667675619705.5
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
-    modified: 1667680430680
-    created: 1667678277155
-    name: Guest
-    description: ""
-    environment:
-      username: guestuser
-      email: guester@mail.com
-      password: password
-      name: guester
-      phone: "12939394"
-      cpf: "12345678901"
-      id: "{% response 'body', 'req_2bb01497bc3b4cbf868bd4cc39f18c67',
-        'b64::JA==::46b', 'never', 60 %}"
-    environmentPropertyOrder:
-      "&":
-        - username
-        - email
-        - password
-        - name
-        - phone
-        - cpf
-        - id
-    metaSortKey: -1667678893001
-    _type: request_group
-  - _id: req_c14a385ced6f431ea18b15985e530b9c
-    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667679561269
-    created: 1667673030960
-    url: "{{host}}/accounts/3840dbae-e8da-4137-8172-63594530843e"
-    name: Update Guest
-    description: ""
-    method: PATCH
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        	"email":"{{email}}",
-        	"password":"{{password}}",
-        	"name":"{{name}}",
-        	"phone":"{{phone}}"
-        }
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-        id: pair_512e8dee0db74d4b8224bdcb35dc97db
-    authentication:
-      type: bearer
-      prefix: Token
-      token: "{{ _.common_token }}"
-    metaSortKey: -1667675619655.5
-    isPrivate: false
-    settingStoreCookies: true
-    settingSendCookies: true
-    settingDisableRenderRequestBody: false
-    settingEncodeUrl: true
-    settingRebuildPath: true
-    settingFollowRedirects: global
-    _type: request
-  - _id: req_d3bd3aa302114dcaa7696da52cd9c95f
-    parentId: fld_9a5596f89d2e4fdb820ee9e5c4a926c1
-    modified: 1667679561870
-    created: 1667673058646
-    url: "{{host}}/login/"
-    name: Login Guest
-    description: ""
-    method: POST
-    body:
-      mimeType: application/json
-      text: |-
-        {
-        	"username":"{{username}}",
-        	"password":"{{password}}"
-        }
-    parameters: []
-    headers:
-      - name: Content-Type
-        value: application/json
-    authentication: {}
-    metaSortKey: -1667675619605.5
+    metaSortKey: -1667675619461.75
     isPrivate: false
     settingStoreCookies: true
     settingSendCookies: true
@@ -618,20 +2087,14 @@ resources:
     _type: request
   - _id: env_3d882ddad58d2ece107d2bb9151f4293ba29d614
     parentId: wrk_9e9af514270f4befaa73141c6bdd6ccf
-    modified: 1667679296604
+    modified: 1667846574093
     created: 1667670167928
     name: Base Environment
     data:
-      host: localhost:8000/api
-      token_guest: "{% response 'body', 'req_d3bd3aa302114dcaa7696da52cd9c95f',
-        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
-      token_host: "{% response 'body', 'req_8d63997754af4239b40bc9d18437d449',
-        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+      host: http://localhost:8000/api
     dataPropertyOrder:
       "&":
         - host
-        - token_guest
-        - token_host
     color: null
     isPrivate: false
     metaSortKey: 1667670167929
