@@ -1,6 +1,7 @@
 from rest_framework.test import APITestCase
 from accounts.models import Account
 from lodgings.models import Lodging
+import ipdb
 
 
 class LodgingsViewTest(APITestCase):
@@ -83,7 +84,7 @@ class LodgingsViewTest(APITestCase):
 
         lodging = {
             "name": "ZZZ",
-            "category": "Hotel",
+            "category": "hotel",
             "description": "Mal",
             "state": "SPx",
             "city": "São Paulox",
@@ -96,7 +97,7 @@ class LodgingsViewTest(APITestCase):
         }
 
         response = self.client.post('/api/lodgings/', lodging, format='json')
-
+        
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['name'], "ZZZ")
 
@@ -110,7 +111,7 @@ class LodgingsViewTest(APITestCase):
 
         lodging = {
             "name": "ZZZ",
-            "category": "Hotel",
+            "category": "hotel",
             "description": "Mal",
             "state": "SPx",
             "city": "São Paulox",
@@ -125,32 +126,6 @@ class LodgingsViewTest(APITestCase):
         response = self.client.post('/api/lodgings/', lodging, format='json')
 
         self.assertEqual(response.status_code, 403)
-
-    def test_if_host_can_create_a_lodging(self):
-        user = {
-            "username": "dunas",
-            "password": "1234"
-        }
-        token = self.client.post('/api/login/', user, format='json')
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
-
-        lodging = {
-            "name": "ZZZ",
-            "category": "Hotel",
-            "description": "Mal",
-            "state": "SPx",
-            "city": "São Paulox",
-            "district": "bira",
-            "street": "rua rua",
-            "number": 778,
-            "cep": "12345678",
-            "phone": "22224449",
-            "email": "email4@email.com"
-        }
-
-        response = self.client.post('/api/lodgings/', lodging, format='json')
-
-        self.assertEqual(response.status_code, 201)
 
     def test_if_host_can_update_a_lodging(self):
         user = {

@@ -88,11 +88,23 @@ class TestModels (TestCase):
             self.assertEqual(max_length, 255)
 
     def test_stars_max_value(self):
-        self.lodging_datas[0]["number"] = 0
-        lodging = Lodging.objects.create(**self.lodging_datas[0])
-        self.assertNotEqual(lodging.number, 0)
+        review_data = {
+            "user": self.account,
+            "room": self.rooms[0],
+            "title": "Gostei, é mt bão",
+            "review": "Gostei demais, é bem legal...",
+            "stars": "6"
+        }
+        review = Review.objects.create(**review_data)
+        self.assertNotEqual(review.stars, 6)
 
     def test_stars_min_value(self):
-        self.lodging_datas[0]["number"] = 6
-        lodging = Lodging.objects.create(**self.lodging_datas[0])
-        self.assertNotEqual(lodging.number, 6)
+        review_data = {
+            "user": self.account,
+            "room": self.rooms[0],
+            "title": "Gostei, é mt bão",
+            "review": "Gostei demais, é bem legal...",
+            "stars": "0"
+        }
+        review = Review.objects.create(**review_data)
+        self.assertNotEqual(review.stars, 0)
