@@ -1,11 +1,14 @@
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = []
+    dependencies = [
+        ("lodgings", "0001_initial"),
+    ]
 
     operations = [
         migrations.CreateModel(
@@ -25,6 +28,13 @@ class Migration(migrations.Migration):
                 ("occupation", models.PositiveIntegerField()),
                 ("available", models.BooleanField(default=True)),
                 ("description", models.TextField(blank=True, null=True)),
+                (
+                    "lodging",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="lodgings.lodging",
+                    ),
+                ),
             ],
         ),
     ]
