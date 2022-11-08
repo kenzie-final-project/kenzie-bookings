@@ -22,8 +22,8 @@ class BookingModelTest(TestCase):
 
         cls.lodging_datas = [
             {
-                "host": cls.account.id,
-                "category": "Pousada",
+                "host": cls.account,
+                "category": "pousada",
                 "description": "description",
                 "name": "Tetris Container",
                 "state": "Paraná",
@@ -35,8 +35,8 @@ class BookingModelTest(TestCase):
                 "cep": "85853000"
             },
             {
-                "host": cls.account.id,
-                "category": "Hotel",
+                "host": cls.account,
+                "category": "hotel",
                 "description": "description",
                 "name": "Ibis Styles",
                 "state": "São Paulo",
@@ -57,7 +57,7 @@ class BookingModelTest(TestCase):
                 "occupation": 2,
                 "available": True,
                 "description": "Quarto com cama de casal",
-                "lodging": cls.lodgings[0].id
+                "lodging": cls.lodgings[0]
             },
             {
                 "number": 2,
@@ -65,7 +65,7 @@ class BookingModelTest(TestCase):
                 "occupation": 3,
                 "available": True,
                 "description": "Quarto com cama de casal e cama de solteiro",
-                "lodging": cls.lodgings[0].id
+                "lodging": cls.lodgings[0]
             }
         ]
         cls.rooms = [Room.objects.create(**room_data) for room_data in cls.room_datas]
@@ -74,8 +74,8 @@ class BookingModelTest(TestCase):
             "checkin_date": "2021-01-01",
             "checkout_date": "2021-01-02",
             "cost": 100.00,
-            "account": cls.account.id,
-            "room": cls.rooms[0].id
+            "user": cls.account,
+            "room": cls.rooms[0]
         }
         cls.booking = Booking.objects.create(**cls.booking_data)
 
