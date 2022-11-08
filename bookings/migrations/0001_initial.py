@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("rooms", "0002_room_lodging"),
+        ("rooms", "0001_initial"),
     ]
 
     operations = [
