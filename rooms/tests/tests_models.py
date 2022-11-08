@@ -42,7 +42,7 @@ class RoomModelTest(TestCase):
                 "cep": "01026000"
             }
         ]
-        cls.lodgings = [Lodging.objects.create(**lodging_data) for lodging_data in cls.lodging_datas ]
+        cls.lodgings = [Lodging.objects.create(**lodging_data) for lodging_data in cls.lodging_datas]
 
         cls.room_datas = [
             {
@@ -88,28 +88,28 @@ class RoomModelTest(TestCase):
         ]
         cls.rooms = [Room.objects.create(**room_data) for room_data in cls.room_datas]
 
-        def test_number_max_length(self):
-            for room in self.rooms:
-                max_length = room._meta.get_field('number').max_length
-                self.assertEquals(max_length, 10)
-                
-        def test_cost_max_digits(self):
-            for room in self.rooms:
-                max_digits = room._meta.get_field('cost').max_digits
-                self.assertEquals(max_digits, 20)
+    def test_number_max_length(self):
+        for room in self.rooms:
+            max_length = room._meta.get_field('number').max_length
+            self.assertEquals(max_length, 10)
+            
+    def test_cost_max_digits(self):
+        for room in self.rooms:
+            max_digits = room._meta.get_field('cost').max_digits
+            self.assertEquals(max_digits, 20)
 
-        def test_cost_decimal_places(self):
-            for room in self.rooms:
-                decimal_places = room._meta.get_field('cost').decimal_places
-                self.assertEquals(decimal_places, 2)
+    def test_cost_decimal_places(self):
+        for room in self.rooms:
+            decimal_places = room._meta.get_field('cost').decimal_places
+            self.assertEquals(decimal_places, 2)
 
-        def test_occupation_max_length(self):
-            for room in self.rooms:
-                max_length = room._meta.get_field('occupation').max_length
-                self.assertEquals(max_length, 10)
-                
-        def test_description_max_length(self):
-            for room in self.rooms:
-                max_length = room._meta.get_field('description').max_length
-                self.assertEquals(max_length, 500)
+    def test_occupation_max_length(self):
+        for room in self.rooms:
+            max_length = room._meta.get_field('occupation').max_length
+            self.assertEquals(max_length, 10)
+            
+    def test_description_max_length(self):
+        for room in self.rooms:
+            max_length = room._meta.get_field('description').max_length
+            self.assertEquals(max_length, 500)
        
