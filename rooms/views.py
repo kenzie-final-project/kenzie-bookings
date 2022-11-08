@@ -1,32 +1,36 @@
-from rest_framework.views import APIView, Response, Request, status
-from rest_framework.pagination import PageNumberPagination
+from django.shortcuts import get_object_or_404
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+
 from .models import Room
 from .serializers import RoomSerializer
+from .mixins import SerializerMixin
+from .permissions import IsLodgingOwner, IsHost
+from lodgings.models import Lodging
+import ipdb
 
-class Roomview(APIView):
-    def get(self, request: Request) -> Response:
-        rooms = Room.objects.all()
-        result_page = self.paginate_queryset(rooms, request, view=self)
-        serializer = RoomSerializer(result_page, many=True)
 
-        return self.get_paginated_response(serializer.data)
-    
-    # def post(self, request: Request) -> Response:
-    #     serializer = RoomSerializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
+class RoomView(ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny, IsLodgingOwner]
 
-    #     return Response(serializer.data, status.HTTP_201_CREATED)
-    
-class SpecificRoomview(APIView):
-    def get(self, request: Request, room_id: int) -> Response:
-        ...
-    
-    def post(self, request: Request, room_id: int) -> Response:
-        ...
-    
-    def patch(self, request: Request, room_id: int) -> Response:
-        ...
-    
-    def delete(self, request: Request, room_id: int) -> Response:
-        ... 
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+    def get_queryset(self):
+        lodging = get_object_or_404(Lodging, id=self.kwargs.get('lodging_id'))
+        rooms = Room.objects.filter(lodging=lodging)
+        return rooms
+
+    def perform_create(self, serializer):
+        lodging = Lodging.objects.get(id=self.kwargs.get('lodging_id'))
+        return serializer.save(lodging=lodging)
+
+
+class RoomDetailView(RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [AllowAny, IsLodgingOwner]
+
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer

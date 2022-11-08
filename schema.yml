@@ -1,0 +1,1115 @@
+openapi: 3.0.3
+info:
+  title: Kenzie Booking
+  version: 1.0.0
+  description: Uma API de reservas em alojamentos, possuindo funções destinadas ao
+    clientes a aos donos dos alojamentos
+paths:
+  /api/accounts/:
+    get:
+      operationId: accounts_list
+      tags:
+      - accounts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountList'
+          description: ''
+    post:
+      operationId: accounts_create
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Account'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Account'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+  /api/accounts/{id}:
+    get:
+      operationId: accounts_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - accounts
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+    put:
+      operationId: accounts_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Account'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Account'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+    patch:
+      operationId: accounts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - accounts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAccount'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAccount'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAccount'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+    delete:
+      operationId: accounts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - accounts
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/lodgings/:
+    get:
+      operationId: lodgings_list
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Lodging'
+          description: ''
+    post:
+      operationId: lodgings_create
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lodging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Lodging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Lodging'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lodging'
+          description: ''
+  /api/lodgings/{id_lodgings}/reviews/:
+    get:
+      operationId: lodgings_reviews_retrieve
+      parameters:
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/lodgings/{id_lodgings}/rooms/{id_room}/reviews/:
+    get:
+      operationId: lodgings_rooms_reviews_list
+      parameters:
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id_room
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+          description: ''
+    post:
+      operationId: lodgings_rooms_reviews_create
+      parameters:
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id_room
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /api/lodgings/{id_lodgings}/rooms/{id_room}/reviews/{id}/:
+    get:
+      operationId: lodgings_rooms_reviews_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id_room
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    put:
+      operationId: lodgings_rooms_reviews_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id_room
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    patch:
+      operationId: lodgings_rooms_reviews_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id_room
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    delete:
+      operationId: lodgings_rooms_reviews_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this review.
+        required: true
+      - in: path
+        name: id_lodgings
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: id_room
+        schema:
+          type: string
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/lodgings/{lodging_id}/rooms/:
+    get:
+      operationId: lodgings_rooms_list
+      parameters:
+      - in: path
+        name: lodging_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+          description: ''
+    post:
+      operationId: lodgings_rooms_create
+      parameters:
+      - in: path
+        name: lodging_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Room'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Room'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+          description: ''
+  /api/lodgings/{lodging_id}/rooms/{id}/:
+    get:
+      operationId: lodgings_rooms_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lodging_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+          description: ''
+    put:
+      operationId: lodgings_rooms_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lodging_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Room'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Room'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+          description: ''
+    patch:
+      operationId: lodgings_rooms_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lodging_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRoom'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRoom'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRoom'
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+          description: ''
+    delete:
+      operationId: lodgings_rooms_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: lodging_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/lodgings/{id}/:
+    get:
+      operationId: lodgings_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lodging'
+          description: ''
+    put:
+      operationId: lodgings_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lodging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Lodging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Lodging'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lodging'
+          description: ''
+    patch:
+      operationId: lodgings_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLodging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLodging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLodging'
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lodging'
+          description: ''
+    delete:
+      operationId: lodgings_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - lodgings
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/login/:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/reviews/:
+    get:
+      operationId: reviews_list
+      tags:
+      - reviews
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+          description: ''
+    post:
+      operationId: reviews_create
+      tags:
+      - reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        full_name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: string
+          maxLength: 12
+        is_host:
+          type: boolean
+        cpf:
+          type: string
+          maxLength: 11
+      required:
+      - cpf
+      - email
+      - full_name
+      - id
+      - password
+      - phone
+      - username
+    AccountList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: string
+          maxLength: 12
+      required:
+      - email
+      - id
+      - phone
+      - username
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    CategoryEnum:
+      enum:
+      - Hotel
+      - Resort
+      - Pousada
+      type: string
+    Lodging:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        host:
+          allOf:
+          - $ref: '#/components/schemas/Account'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        stars:
+          type: string
+          readOnly: true
+        description:
+          type: string
+        state:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 127
+        district:
+          type: string
+          maxLength: 127
+        street:
+          type: string
+          maxLength: 127
+        number:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+        complement:
+          type: string
+          maxLength: 30
+        cep:
+          type: string
+          maxLength: 8
+      required:
+      - cep
+      - city
+      - description
+      - district
+      - host
+      - id
+      - name
+      - number
+      - stars
+      - state
+      - street
+    PatchedAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        full_name:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: string
+          maxLength: 12
+        is_host:
+          type: boolean
+        cpf:
+          type: string
+          maxLength: 11
+    PatchedLodging:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        host:
+          allOf:
+          - $ref: '#/components/schemas/Account'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 127
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        stars:
+          type: string
+          readOnly: true
+        description:
+          type: string
+        state:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 127
+        district:
+          type: string
+          maxLength: 127
+        street:
+          type: string
+          maxLength: 127
+        number:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+        complement:
+          type: string
+          maxLength: 30
+        cep:
+          type: string
+          maxLength: 8
+    PatchedReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/Account'
+          readOnly: true
+        room:
+          allOf:
+          - $ref: '#/components/schemas/Room'
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        review:
+          type: string
+        stars:
+          type: integer
+          maximum: 5
+          minimum: 1
+    PatchedRoom:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        lodging:
+          allOf:
+          - $ref: '#/components/schemas/Lodging'
+          readOnly: true
+        number:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+        occupation:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        available:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/Account'
+          readOnly: true
+        room:
+          allOf:
+          - $ref: '#/components/schemas/Room'
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        review:
+          type: string
+        stars:
+          type: integer
+          maximum: 5
+          minimum: 1
+      required:
+      - id
+      - review
+      - room
+      - stars
+      - title
+      - user
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        lodging:
+          allOf:
+          - $ref: '#/components/schemas/Lodging'
+          readOnly: true
+        number:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+        occupation:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        available:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+      required:
+      - cost
+      - id
+      - lodging
+      - occupation
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
