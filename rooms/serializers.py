@@ -8,13 +8,13 @@ from lodgings.serializers import LodgingSerializer
 
 class RoomSerializer(serializers.ModelSerializer):
     # id = serializers.IntegerField(read_only=True)
-    lodging = LodgingSerializer(write_only=True)
     stars = serializers.SerializerMethodField()
 
     class Meta:
         model = Room
-        fields = '__all__'
+        fields = ['id', 'number', 'cost', 'occupation', 'available', 'description', 'stars']
         read_only_fields = ['id', 'stars']
+        # extra_kwargs = {"lodging": {"write_only": True}}
 
     def create(self, validated_data):
         return Room.objects.create(**validated_data)

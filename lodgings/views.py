@@ -23,8 +23,10 @@ class LodgingView(generics.ListCreateAPIView):
         route_parameter_city = self.request.GET.get("city")
         route_parameter_category = self.request.GET.get("category")
 
+        queryset = Lodging.objects.all()
+
         if self.request.user.is_host:
-            queryset = Lodging.objects.filter(host=self.request.user)
+            queryset = queryset.filter(host=self.request.user)
 
         if route_parameter_state:
             queryset = queryset.filter(state__icontains=route_parameter_state)

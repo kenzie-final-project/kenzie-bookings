@@ -13,7 +13,7 @@ import ipdb
 
 class RoomView(ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [AllowAny, IsLodgingOwner]
+    permission_classes = [IsLodgingOwner]
 
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -30,7 +30,7 @@ class RoomView(ListCreateAPIView):
 
 class RoomDetailView(RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [AllowAny, IsLodgingOwner]
+    permission_classes = [IsLodgingOwner]
 
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
