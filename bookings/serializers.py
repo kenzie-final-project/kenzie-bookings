@@ -6,14 +6,13 @@ from .models import Booking
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    user = AccountSerializer(write_only=True)
-    room = RoomSerializer(write_only=True)
+    """ user = AccountSerializer(write_only=True)
+    room = RoomSerializer(write_only=True) """
 
     class Meta:
         model = Booking
-        fields = '__all__'
-        # extra_kwargs = {"user": {"write_only": True}, "room": {"write_only": True}}
-        read_only_fields = ['cost']
+        fields = ['id', 'checkin_date', 'checkout_date', 'cost']
+        read_only_fields = ['id']
 
 
 class SpecificBookingSerializer(serializers.ModelSerializer):

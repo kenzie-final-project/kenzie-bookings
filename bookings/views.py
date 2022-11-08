@@ -7,6 +7,7 @@ from .serializers import BookingSerializer
 from .mixins import SerializerMixin
 from .permissions import IsOwnerOrAdmin, IsGuest
 from rooms.models import Room
+from accounts.models import Account
 
 
 class ListBookingsView(SerializerMixin, ListAPIView):
@@ -22,10 +23,10 @@ class CreateBookingView(CreateAPIView):
 
     def perform_create(self, serializer):
         room_id = self.kwargs.get('room_id')
-        user = self.request.user
-        print("TEST", room_id, user.id)
+        room = Room.objects.get(id=room_id)
 
-        return serializer.save(room_id=room_id, user=user)
+        return serializer.save(room=room, user=self.request.user)
+
 
 
 class RetrieveBookingView(RetrieveAPIView):
