@@ -1,6 +1,7 @@
 from rest_framework.test import APITestCase
 from accounts.models import Account
 from lodgings.models import Lodging
+import ipdb
 
 
 class LodgingsViewTest(APITestCase):
@@ -51,7 +52,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 77,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224444",
+            "email": "email@email.com"
         }
 
         lodging2 = {
@@ -63,7 +66,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 77,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224445",
+            "email": "email1@email.com"
         }
 
         cls.lodging1 = Lodging.objects.create(**lodging, host=cls.host)
@@ -79,18 +84,20 @@ class LodgingsViewTest(APITestCase):
 
         lodging = {
             "name": "ZZZ",
-            "category": "Hotel",
+            "category": "hotel",
             "description": "Mal",
             "state": "SPx",
             "city": "São Paulox",
             "district": "bira",
             "street": "rua rua",
             "number": 778,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224446",
+            "email": "email2@email.com"
         }
 
         response = self.client.post('/api/lodgings/', lodging, format='json')
-
+        
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['name'], "ZZZ")
 
@@ -104,43 +111,21 @@ class LodgingsViewTest(APITestCase):
 
         lodging = {
             "name": "ZZZ",
-            "category": "Hotel",
+            "category": "hotel",
             "description": "Mal",
             "state": "SPx",
             "city": "São Paulox",
             "district": "bira",
             "street": "rua rua",
             "number": 778,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224447",
+            "email": "email3@email.com"
         }
 
         response = self.client.post('/api/lodgings/', lodging, format='json')
 
         self.assertEqual(response.status_code, 403)
-
-    def test_if_host_can_create_a_lodging(self):
-        user = {
-            "username": "dunas",
-            "password": "1234"
-        }
-        token = self.client.post('/api/login/', user, format='json')
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.data['token'])
-
-        lodging = {
-            "name": "ZZZ",
-            "category": "Hotel",
-            "description": "Mal",
-            "state": "SPx",
-            "city": "São Paulox",
-            "district": "bira",
-            "street": "rua rua",
-            "number": 778,
-            "cep": "12345678"
-        }
-
-        response = self.client.post('/api/lodgings/', lodging, format='json')
-
-        self.assertEqual(response.status_code, 201)
 
     def test_if_host_can_update_a_lodging(self):
         user = {

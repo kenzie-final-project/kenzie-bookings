@@ -20,7 +20,7 @@ class RoomModelTest(TestCase):
 
         cls.lodging_datas = [
             {
-                "host": cls.account.id,
+                "host": cls.account,
                 "category": "Pousada",
                 "name": "Tetris Container",
                 "state": "Paraná",
@@ -31,7 +31,7 @@ class RoomModelTest(TestCase):
                 "cep": "85853000"
             },
             {
-                "host": cls.account.id,
+                "host": cls.account,
                 "category": "Hotel",
                 "name": "Ibis Styles",
                 "state": "São Paulo",
@@ -51,7 +51,7 @@ class RoomModelTest(TestCase):
                 "occupation": 2,
                 "available": True,
                 "description": "Quarto com cama de casal",
-                "lodging": cls.lodging[0].id
+                "lodging": cls.lodgings[0]
             },
             {
                 "number": 2,
@@ -59,7 +59,7 @@ class RoomModelTest(TestCase):
                 "occupation": 3,
                 "available": True,
                 "description": "Quarto com cama de casal e cama de solteiro",
-                "lodging": cls.lodging[0].id
+                "lodging": cls.lodgings[0]
             },
             {
                 "number": 3,
@@ -67,7 +67,7 @@ class RoomModelTest(TestCase):
                 "occupation": 4,
                 "available": True,
                 "description": "Quarto com cama de casal, cama de solteiro e cama auxiliar",
-                "lodging": cls.lodging[0].id
+                "lodging": cls.lodgings[0]
             },
             {
                 "number": 1,
@@ -75,7 +75,7 @@ class RoomModelTest(TestCase):
                 "occupation": 2,
                 "available": True,
                 "description": "Quarto com cama de casal",
-                "lodging": cls.lodging[1].id
+                "lodging": cls.lodgings[1]
             },
             {
                 "number": 2,
@@ -83,7 +83,7 @@ class RoomModelTest(TestCase):
                 "occupation": 3,
                 "available": True,
                 "description": "Quarto com cama de casal e cama de solteiro",
-                "lodging": cls.lodging[1].id
+                "lodging": cls.lodgings[1]
             }
         ]
         cls.rooms = [Room.objects.create(**room_data) for room_data in cls.room_datas]
@@ -91,7 +91,7 @@ class RoomModelTest(TestCase):
     def test_number_max_length(self):
         for room in self.rooms:
             max_length = room._meta.get_field('number').max_length
-            self.assertEquals(max_length, 10)
+            self.assertEquals(max_length, None)
             
     def test_cost_max_digits(self):
         for room in self.rooms:
@@ -106,10 +106,10 @@ class RoomModelTest(TestCase):
     def test_occupation_max_length(self):
         for room in self.rooms:
             max_length = room._meta.get_field('occupation').max_length
-            self.assertEquals(max_length, 10)
+            self.assertEquals(max_length, None)
             
     def test_description_max_length(self):
         for room in self.rooms:
             max_length = room._meta.get_field('description').max_length
-            self.assertEquals(max_length, 500)
+            self.assertEquals(max_length, None)
        
