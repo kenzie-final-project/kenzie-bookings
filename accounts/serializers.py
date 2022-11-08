@@ -56,3 +56,11 @@ class AccountListSerializer(serializers.ModelSerializer):
             "email",
             "phone"
         ]
+
+
+class AccountNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = [
+            "username"
+        ]
