@@ -51,7 +51,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 77,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224444",
+            "email": "email@email.com"
         }
 
         lodging2 = {
@@ -63,7 +65,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 77,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224445",
+            "email": "email1@email.com"
         }
 
         cls.lodging1 = Lodging.objects.create(**lodging, host=cls.host)
@@ -86,7 +90,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 778,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224446",
+            "email": "email2@email.com"
         }
 
         response = self.client.post('/api/lodgings/', lodging, format='json')
@@ -111,7 +117,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 778,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224447",
+            "email": "email3@email.com"
         }
 
         response = self.client.post('/api/lodgings/', lodging, format='json')
@@ -135,7 +143,9 @@ class LodgingsViewTest(APITestCase):
             "district": "bira",
             "street": "rua rua",
             "number": 778,
-            "cep": "12345678"
+            "cep": "12345678",
+            "phone": "22224449",
+            "email": "email4@email.com"
         }
 
         response = self.client.post('/api/lodgings/', lodging, format='json')
