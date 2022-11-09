@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView, ListAPIView
 from rest_framework.views import APIView, Request, Response, status
-from .permissions import IsOwnerOrReadOnly, IsGuest, IsAuthenticated
+from .permissions import IsOwnerOrReadOnly, IsGuest, IsAuthenticated, IsOwnerOrAll
 from .models import Review
 from rooms.models import Room
 from lodgings.models import Lodging
@@ -35,7 +35,7 @@ class ReviewDetailView (RetrieveUpdateDestroyAPIView):
 
 class ReviewView (ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAll]
     serializer_class = ReviewSerializer
     queryset = Review.objects
 
