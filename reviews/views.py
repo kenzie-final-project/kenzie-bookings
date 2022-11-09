@@ -46,11 +46,14 @@ class ReviewView (ListCreateAPIView):
     def perform_create(self, serializer):
         room_id = self.kwargs.get('room_id')
         user = self.request.user
-
-        if Booking.objects.filter(user=user).exists() is False:
-            return Response({"detail": "No booking on this room"}, status=status.HTTP_400_NO_CONTENT)
-
         return serializer.save(room_id=room_id, user=user)
+
+    def create(self, request, *args, **kwargs):
+        room_id = self.kwargs.get('room_id')
+        user = self.request.user
+        if Booking.objects.filter(user=user, room_id=room_id).exists() is False:
+            return Response({"detail": "Missing user booking on this room"}, status=status.HTTP_400_BAD_REQUEST)
+        return super().create(request, *args, **kwargs)
 
 
 class GenericReviewView (UserTypeMixin, ListAPIView):
