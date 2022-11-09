@@ -20,7 +20,7 @@ class RoomView(ListCreateAPIView):
 
     def get_queryset(self):
         lodging = get_object_or_404(Lodging, id=self.kwargs.get('lodging_id'))
-        rooms = Room.objects.filter(lodging=lodging)
+        rooms = Room.objects.filter(lodging=lodging, available=True)
         return rooms
 
     def perform_create(self, serializer):
