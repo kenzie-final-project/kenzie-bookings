@@ -84,7 +84,7 @@ class LodgingsViewTest(APITestCase):
 
         lodging = {
             "name": "ZZZ",
-            "category": "hotel",
+            "category": "Hotel",
             "description": "Mal",
             "state": "SPx",
             "city": "São Paulox",
@@ -111,7 +111,7 @@ class LodgingsViewTest(APITestCase):
 
         lodging = {
             "name": "ZZZ",
-            "category": "hotel",
+            "category": "Hotel",
             "description": "Mal",
             "state": "SPx",
             "city": "São Paulox",
