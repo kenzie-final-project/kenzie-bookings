@@ -3,9 +3,9 @@ from django.core.validators import MinValueValidator
 
 
 class LodgingCategories(models.TextChoices):
-    HOTEL = 'hotel'
-    RESORT = 'resort'
-    POUSADA = 'pousada'
+    HOTEL = 'Hotel'
+    RESORT = 'Resort'
+    POUSADA = 'Pousada'
 
 
 class Lodging(models.Model):
