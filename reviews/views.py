@@ -1,64 +1,74 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView, ListAPIView
 from rest_framework.views import APIView, Request, Response, status
-from accounts.permissions import IsOwnerOrAdmin
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsGuest, IsAuthenticated, IsOwnerOrAll
 from .models import Review
 from rooms.models import Room
 from lodgings.models import Lodging
+from bookings.models import Booking
+from bookings.permissions import IsGuestOrHostOrAdmin
+from bookings.mixins import UserTypeMixin
 from .serializers import ReviewSerializer
 # Create your views here.
 
 
-class ListReviewFromLodgings(APIView):
-    def get(self, request, lodging_id):
-        lodging = get_object_or_404(Lodging, id=lodging_id)
+class LodgingReviewView (ListAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = []
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        lodging = get_object_or_404(Lodging, id=self.kwargs.get('lodging_id'))
         rooms = Room.objects.filter(lodging=lodging)
         reviews = Review.objects.filter(room__in=rooms)
-        serializer = ReviewSerializer(reviews, many=True)
-        serializer.is_valid(raise_exception=True)
-
-        return Response(serializer.data)
+        return reviews
 
 
-class RetrieveUpdateDestroyReview(RetrieveUpdateDestroyAPIView):
+class ReviewDetailView (RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = ReviewSerializer
     queryset = Review.objects
 
 
-class RoomReview (ListCreateAPIView):
+class ReviewView (ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrAll]
     serializer_class = ReviewSerializer
     queryset = Review.objects
 
     def get_queryset(self):
-        room_id = self.kwargs["room_id"]
-        return self.queryset.filter(lodging=room_id)
+        room_id = self.kwargs.get('room_id')
+        return self.queryset.filter(room_id=room_id)
 
-    def post(self, request: Request, room_id):
-        room = get_object_or_404(Room, id=room_id)
-        request.data["room"] = room
-        request.data["user"] = request.user
-        serializer = ReviewSerializer(data=request.data, many=True)
-        serializer.is_valid(raise_exception=True)
+    def perform_create(self, serializer):
+        room_id = self.kwargs.get('room_id')
+        user = self.request.user
+        return serializer.save(room_id=room_id, user=user)
 
-        return Response(serializer.data)
+    def create(self, request, *args, **kwargs):
+        room_id = self.kwargs.get('room_id')
+        user = self.request.user
+        if Booking.objects.filter(user=user, room_id=room_id).exists() is False:
+            return Response({"detail": "Missing user booking on this room"}, status=status.HTTP_400_BAD_REQUEST)
+        return super().create(request, *args, **kwargs)
 
 
-class ListReview (ListCreateAPIView):
+class GenericReviewView (UserTypeMixin, ListAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsOwnerOrAdmin]
-    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated, IsGuestOrHostOrAdmin]
     queryset = Review.objects
+    serializer_map = {
+        "admin": ReviewSerializer,
+        "host": ReviewSerializer,
+        "guest": ReviewSerializer,
+    }
 
-    def get_queryset(self):
+    """ def get_queryset(self):
         user = self.request.user
         if user.is_superuser:
             return self.queryset.all()
         else:
-            return self.queryset.filter(user_id=user.id)
+            return self.queryset.filter(user_id=user.id) """

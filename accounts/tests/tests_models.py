@@ -22,15 +22,13 @@ class AccountModelTest(TestCase):
         username = self.account._meta.get_field('username')
         max_length = username.max_length
 
-        self.assertEqual(max_length, 255)
+        self.assertEqual(max_length, 150)
 
     def test_email_attr(self):
         email = self.account._meta.get_field('email')
         max_length = email.max_length
-        unique = email.unique
 
-        self.assertEqual(max_length, 255)
-        self.assertEqual(unique, True)
+        self.assertEqual(max_length, 254)
 
     def test_phone_attr(self):
         phone = self.account._meta.get_field('phone')

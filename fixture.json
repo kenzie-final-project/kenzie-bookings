@@ -1,0 +1,103 @@
+[
+    {
+        "model": "accounts.account",
+        "pk": "0b765b44-292a-471e-b2b9-b917ab2b05bd",
+        "fields": {
+            "password": "pbkdf2_sha256$390000$Rd5Da6gWpJqgYKRR04UbbU$PhxDMxb3rW7fK86vemTASvB8xxLMgWnYDK0z6ie3ais=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "name_02",
+            "first_name": "firstname",
+            "last_name": "lastname",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-07T23:50:30.640Z",
+            "email": "email@email.com",
+            "phone": "123456789012",
+            "cpf": "12345678901",
+            "is_host": false,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.account",
+        "pk": "0e457fba-15b2-4c76-8eef-ba6c95be72ff",
+        "fields": {
+            "password": "pbkdf2_sha256$390000$Iee30K1mB7uwOkbfXJ9z20$lpBXiU/64OaN0i2oNIH1+Uh3HWbzWEEwRwDbjMhg97Y=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "name_01",
+            "first_name": "firstname",
+            "last_name": "lastname",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2022-11-07T23:50:09.347Z",
+            "email": "email@email.com",
+            "phone": "123456789012",
+            "cpf": "12345678901",
+            "is_host": true,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "accounts.account",
+        "pk": "5c7127c5-d72a-4500-90e9-0bf61015aa45",
+        "fields": {
+            "password": "pbkdf2_sha256$390000$q5DFh6gMU7GOeLbcwaaBXk$7EZSwrrjjxvhDtjBROulX44SoKVe+SqmCapBuFOB7dc=",
+            "last_login": null,
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "firstname",
+            "last_name": "lastname",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2022-11-07T23:59:47.638Z",
+            "email": "email@email.com",
+            "phone": "123456789012",
+            "cpf": "12345678901",
+            "is_host": true,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "lodgings.lodging",
+        "pk": 1,
+        "fields": {
+            "host": "0e457fba-15b2-4c76-8eef-ba6c95be72ff",
+            "category": "hotel",
+            "description": "--DESCRIPTION--",
+            "name": "Hotel Panama",
+            "state": "RJ",
+            "city": "Copacabana",
+            "district": "itaquera",
+            "street": "rua jo�o e Maria",
+            "number": 120,
+            "complement": "",
+            "cep": "12345678",
+            "email": "",
+            "phone": ""
+        }
+    },
+    {
+        "model": "lodgings.lodging",
+        "pk": 2,
+        "fields": {
+            "host": "0e457fba-15b2-4c76-8eef-ba6c95be72ff",
+            "category": "resort",
+            "description": "--DESCRIPTION--",
+            "name": "Resort AMAZON",
+            "state": "LA",
+            "city": "Long Beach",
+            "district": "--DISTRICT--",
+            "street": "rua jo�o e Maria",
+            "number": 166,
+            "complement": "",
+            "cep": "12345678",
+            "email": "",
+            "phone": ""
+        }
+    }
+]

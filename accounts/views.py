@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import Response
-from .permissions import IsOwnerOrAdmin
+from .permissions import IsOwnerOrAdmin, IsSafeOnlyAdmin
 from .serializers import AccountSerializer, AccountListSerializer
 from .mixins import SerializerMixin
 from .models import Account
@@ -20,6 +20,8 @@ class LoginView(ObtainAuthToken):
 
 
 class ListCreateAccountView(SerializerMixin, ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsSafeOnlyAdmin]
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     serializer_map = {
