@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from lodgings.models import Lodging
+from rooms.models import Room
 from reviews.models import Review
 from django.db.models import Avg
 
@@ -21,10 +22,13 @@ class LodgingSerializer(serializers.ModelSerializer):
             'street',
             'number',
             'complement',
-            'cep'
+            'cep',
+            'email',
+            'phone'
         ]
         read_only_fields = ['id', 'stars']
 
     def get_stars(self, obj):
-        stars = Review.objects.aggregate(Avg('stars'))
+        rooms = Room.objects.filter(lodging=obj)
+        stars = Review.objects.filter(room__in=rooms).aggregate(Avg('stars'))
         return stars
