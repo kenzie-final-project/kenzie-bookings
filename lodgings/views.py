@@ -25,7 +25,7 @@ class LodgingView(generics.ListCreateAPIView):
 
         queryset = Lodging.objects.all()
 
-        if self.request.user.is_host:
+        if self.request.user.is_authenticated and self.request.user.is_host:
             queryset = queryset.filter(host=self.request.user)
 
         if route_parameter_state:
