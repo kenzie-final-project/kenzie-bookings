@@ -1,0 +1,29 @@
+migration:
+    build: .
+    env_file: .env
+    command:
+      bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py migrate'
+    volumes:
+      - .:/code
+    depends_on:
+      db:
+        condition: service_healthy
+    #networks:
+    #  - web
+
+  web:
+    build: .
+    env_file: .env
+    command:
+      bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - .:/code
+    stdin_open: true
+    tty: true
+    ports:
+      - 8000:8000
+    depends_on:
+      db:
+        condition: service_healthy
+      migration:
+        condition: service_completed_successfully
