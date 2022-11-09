@@ -34,7 +34,8 @@ class BookingView(ListCreateAPIView):
     def perform_create(self, serializer):
         room_id = self.kwargs.get('room_id')
         room = Room.objects.get(id=room_id)
-
+        room.available = False
+        room.save()
         return serializer.save(room=room, user=self.request.user)
 
 
